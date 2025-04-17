@@ -68,3 +68,7 @@ button{
   list-style-type: disc;
   padding-left: 20px;
 }
+
+html {
+  scroll-behavior: smooth;
+}

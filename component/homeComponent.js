@@ -3,13 +3,39 @@ import Image from "next/image";
 import { createClient } from 'next-sanity';
 const BlockContent = require('@sanity/block-content-to-react')
 import Moment from 'react-moment';
+import { useEffect } from "react";
 
 
 export default function HomeComponent({data}) {
 
     let [porto] = data;
 
-    console.log(porto)
+
+    useEffect(()=>{
+      function openAction(){
+        if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+          console.log(document)
+          window.onscroll = function () { scrollFunction() };
+
+          function scrollFunction() {
+            const scrollUpButton = document.getElementById("scrollUpButton");
+            if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+              scrollUpButton.style.display = "block";
+            } else {
+              scrollUpButton.style.display = "none";
+            }
+          }
+
+          function scrollToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          }
+
+          scrollFunction()
+        }
+      }
+      openAction();
+    },[])
 
     const serializers = {
         types: {},
@@ -49,7 +75,10 @@ export default function HomeComponent({data}) {
     }
 
     function scrollToTop() {
-      
+      if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
     }
 
   return (
@@ -518,13 +547,9 @@ export default function HomeComponent({data}) {
       </div>
       <div>
         <h3 className="text-xl font-bold mb-4">Skills</h3>
-        <ul className="text-gray-400 space-y-2">
-          <li>PHP, Laravel, CodeIgniter</li>
-          <li>React.js, NextJS</li>
-          <li>Flutter</li>
-          <li>MySQL, PostgreSQL</li>
-          <li>Linux Server, Docker</li>
-        </ul>
+        <div className="grid" style={{gridTemplateColumns:'auto auto'}}>{porto.skills.map((r, i)=>{
+          return <span key={i} className="pr-[5px] text-gray-400">- {r.name}</span>
+        })}</div>
       </div>
     </div>
     <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -551,7 +576,7 @@ export default function HomeComponent({data}) {
   <button
     id="scrollUpButton"
     className="fixed bottom-4 right-4 bg-yellow-400 text-gray-900 p-2 rounded-full shadow-lg hidden"
-    onClick={scrollToTop()}
+    onClick={scrollToTop}
   >
     ↑
   </button>
