@@ -14,10 +14,6 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Gugus Darmayanto",
   description: "Programmer with 6 years of experience, focused on website and mobile application development for the last 2 years. Interested in innovation and development of the latest technology in the IT world and programming.",
-  icon: "/new-icon-path.jpg", // Updated icon path
-  meta: {
-    icon: "/new-icon-path.jpg", // Updated meta icon path
-  },
 };
 export default function RootLayout({ children }) {
   return (
