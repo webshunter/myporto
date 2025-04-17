@@ -22,7 +22,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <link rel="icon" href="/gugus.jpg" sizes="256x256" type="image/x-icon"/>
+      <head>
+        <title>Gugus Darmayanto</title>
+        <link rel="icon" href="/gugus.png" sizes="256x256" type="image/png"/>      
+      </head>
       <body
         style={{
           background: "#000000",
