@@ -15,7 +15,6 @@ const client = createClient(config);
 
 
 export default async function Home(props) {
-
   const query = `*[_type == "portofolio"][]{
     name,
     headtitle,
@@ -56,8 +55,7 @@ export default async function Home(props) {
     }
   }`
 
-  const posts = await client.fetch(query, { cache: 'force-cache' })
-
+  const posts = await client.fetch(query, { cache: 'no-cache' })  
   return (
     <>
     <HomeComponent data={posts} />
