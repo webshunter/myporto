@@ -189,7 +189,7 @@ export default function HomeComponent({data}) {
     </div>
     <div className="md:w-1/2 mt-8 md:mt-0">
       <div
-        className="w-full h-64 md:h-96 bg-gray-800 rounded-lg bg-cover bg-center bg-no-repeat"
+        className="w-full h-64 md:h-96 bg-gray-800 rounded-lg bg-top bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url("'+porto.foto+'")' }}
       />
     </div>
@@ -200,7 +200,7 @@ export default function HomeComponent({data}) {
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/3 mb-8 md:mb-0">
         <div
-          className="w-full h-64 md:h-80 rounded-lg bg-cover bg-center bg-no-repeat"
+          className="w-full h-64 md:h-80 rounded-lg bg-cover bg-top bg-center bg-no-repeat"
           style={{ backgroundImage: 'url("'+porto.foto+'")' }}
         />
       </div>
