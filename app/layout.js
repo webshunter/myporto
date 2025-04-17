@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>Gugus Darmayanto</title>
-        <link rel="icon" href="/gugus.png" sizes="any" />      
+        <link rel="icon" href="/icon.png" sizes="any" />      
       </head>
       <body
         style={{
