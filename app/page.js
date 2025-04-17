@@ -56,8 +56,7 @@ export default async function Home(props) {
     }
   }`
 
-  const posts = await client.fetch(query)
-
+  const posts = await client.fetch(query, { cache: 'force-cache' })
 
   return (
     <>
