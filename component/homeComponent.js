@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import { useEffect, useState } from "react";
 
 
-export default function HomeComponent({ data, baseurl }) {
+export default function HomeComponent({ data}) {
 
     const [porto] = data;
 
@@ -35,7 +35,7 @@ export default function HomeComponent({ data, baseurl }) {
         }
       }
       openAction();
-    }, [data, setPorto])
+    }, [])
 
     const serializers = {
         types: {},

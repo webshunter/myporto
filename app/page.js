@@ -19,7 +19,7 @@ export default async function Home(props) {
   const posts = await postsGet.json();
   return (
     <>
-    <HomeComponent data={posts} baseurl={process.env.BASE_URL} />
+    <HomeComponent data={posts} />
 </>
   );
 }
