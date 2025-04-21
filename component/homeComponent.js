@@ -3,16 +3,20 @@ import Image from "next/image";
 import { createClient } from 'next-sanity';
 const BlockContent = require('@sanity/block-content-to-react')
 import Moment from 'react-moment';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function HomeComponent({data}) {
 
-    let [porto] = data;
+    const [[porto], setPorto] = useState(data);
 
 
     useEffect(()=>{
-      function openAction(){
+      async function openAction(){
+        const postsGet = await fetch('/api/post?v=' + Date.now());
+        const posts = await postsGet.json();
+        console.log(posts);
+        setPorto(posts);
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
@@ -35,7 +39,7 @@ export default function HomeComponent({data}) {
         }
       }
       openAction();
-    },[])
+    },[setPorto])
 
     const serializers = {
         types: {},
