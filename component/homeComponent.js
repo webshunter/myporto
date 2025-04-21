@@ -3,16 +3,16 @@ import Image from "next/image";
 import { createClient } from 'next-sanity';
 const BlockContent = require('@sanity/block-content-to-react')
 import Moment from 'react-moment';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
-export default function HomeComponent({ data}) {
+export default function HomeComponent({data}) {
 
-    const [porto] = data;
+    let [porto] = data;
 
 
     useEffect(()=>{
-      async function openAction(){     
+      function openAction(){
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
@@ -35,7 +35,7 @@ export default function HomeComponent({ data}) {
         }
       }
       openAction();
-    }, [])
+    },[])
 
     const serializers = {
         types: {},
