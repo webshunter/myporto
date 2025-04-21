@@ -12,38 +12,44 @@ const client = createClient(config)
 export async function GET(req) {
   try {
     const query = `*[_type == "portofolio"][]{
-  name,
-  headtitle,
-  email,
-  github,
-  'foto' : image.asset->url,
-  description,
-  location,
-  linkcv,
-  'experience': experience[]->{
     name,
-    position,
-    startDate,
-    endDate,
-    details
-  },
-  'education': education[]->{
-    name,
-    startDate,
-    endDate,
-    graduate,
-    education
-  },
-  'services': services[]->{
-    name,
-    'icon':icon.asset->url,
-    skill
-  },
-  'skills': skills[]->{
-    name,
-    prosentase
-  }
-}`
+    headtitle,
+    email,
+    github,
+    'foto' : image.asset->url,
+    description,
+    location,
+    linkcv,
+    language,
+    'experience': experience[]->{
+      name,
+      position,
+      startDate,
+      endDate,
+      details
+    },
+    'education': education[]->{
+      name,
+      startDate,
+      endDate,
+      graduate,
+      education
+    },
+    'services': services[]->{
+      name,
+      'icon':icon.asset->url,
+      skill
+    },
+    'skills': skills[]->{
+      name,
+      prosentase
+    },
+    'project' : project[]->{
+      name,
+      'icon':icon.asset->url,
+      details
+    }
+  }`
     const posts = await client.fetch(query)
     return new Response(JSON.stringify(posts), { status: 200 })
   } catch (error) {
