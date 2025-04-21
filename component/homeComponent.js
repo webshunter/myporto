@@ -15,7 +15,7 @@ export default function HomeComponent({ data, baseurl }) {
       async function openAction(){
         const postsGet = await fetch(baseurl + '/api/post?v=' + Date.now());
         const posts = await postsGet.json();
-        setPorto(posts);
+        setPorto(posts || data);        
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
@@ -38,7 +38,7 @@ export default function HomeComponent({ data, baseurl }) {
         }
       }
       openAction();
-    }, [setPorto])
+    }, [data, setPorto])
 
     const serializers = {
         types: {},
