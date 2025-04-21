@@ -15,8 +15,47 @@ const client = createClient(config);
 
 
 export default async function Home(props) {
-  const postsGet = await fetch(process.env.BASE_URL +'/api/post?v='+Date.now());
-  const posts = await postsGet.json();
+  const query = `*[_type == "portofolio"][]{
+    name,
+    headtitle,
+    email,
+    github,
+    'foto' : image.asset->url,
+    description,
+    location,
+    linkcv,
+    language,
+    'experience': experience[]->{
+      name,
+      position,
+      startDate,
+      endDate,
+      details
+    },
+    'education': education[]->{
+      name,
+      startDate,
+      endDate,
+      graduate,
+      education
+    },
+    'services': services[]->{
+      name,
+      'icon':icon.asset->url,
+      skill
+    },
+    'skills': skills[]->{
+      name,
+      prosentase
+    },
+    'project' : project[]->{
+      name,
+      'icon':icon.asset->url,
+      details
+    }
+  }`
+
+  const posts = await client.fetch(query, { cache: 'no-cache' })  
   return (
     <>
     <HomeComponent data={posts} />
