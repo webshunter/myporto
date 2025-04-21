@@ -8,13 +8,16 @@ import { useEffect, useState } from "react";
 
 export default function HomeComponent({ data, baseurl }) {
 
-    let [[porto], setPorto] = useState(data);
+    let [dataPorto] = data;
+
+    let [porto, setPorto] = useState(dataPorto ||{});
 
 
     useEffect(()=>{
       async function openAction(){
         const postsGet = await fetch(baseurl + '/api/post?v=' + Date.now());
         const posts = await postsGet.json();
+        console.log(posts)
         // setPorto(posts || data);  
         console.log(posts)      
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
