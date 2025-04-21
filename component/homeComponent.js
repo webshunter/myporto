@@ -8,18 +8,11 @@ import { useEffect, useState } from "react";
 
 export default function HomeComponent({ data, baseurl }) {
 
-    const [dataPorto] = data;
-
-    const [porto, setPorto] = useState(dataPorto ||{});
+    const [porto] = data;
 
 
     useEffect(()=>{
-      async function openAction(){
-        const postsGet = await fetch(baseurl + '/api/post?v=' + Date.now());
-        const posts = await postsGet.json();
-        console.log(posts)
-        // setPorto(posts || data);  
-        console.log(posts)      
+      async function openAction(){     
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
