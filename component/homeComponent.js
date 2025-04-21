@@ -38,7 +38,7 @@ export default function HomeComponent({ data, baseurl }) {
         }
       }
       openAction();
-    },[])
+    }, [setPorto])
 
     const serializers = {
         types: {},
