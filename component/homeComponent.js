@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 
 export default function HomeComponent({ data, baseurl }) {
 
-    let [dataPorto] = data;
+    const [dataPorto] = data;
 
-    let [porto, setPorto] = useState(dataPorto ||{});
+    const [porto, setPorto] = useState(dataPorto ||{});
 
 
     useEffect(()=>{
