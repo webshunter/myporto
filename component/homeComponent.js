@@ -15,7 +15,8 @@ export default function HomeComponent({ data, baseurl }) {
       async function openAction(){
         const postsGet = await fetch(baseurl + '/api/post?v=' + Date.now());
         const posts = await postsGet.json();
-        setPorto(posts || data);        
+        // setPorto(posts || data);  
+        console.log(posts)      
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
