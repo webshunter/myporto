@@ -3,16 +3,19 @@ import Image from "next/image";
 import { createClient } from 'next-sanity';
 const BlockContent = require('@sanity/block-content-to-react')
 import Moment from 'react-moment';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
-export default function HomeComponent({data}) {
+export default function HomeComponent({ data, baseurl }) {
 
-    let [porto] = data;
+    let [[porto], setPorto] = useState(data);
 
 
     useEffect(()=>{
-      function openAction(){
+      async function openAction(){
+        const postsGet = await fetch(baseurl + '/api/post?v=' + Date.now());
+        const posts = await postsGet.json();
+        setPorto(posts);
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
