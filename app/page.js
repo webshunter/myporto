@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { createClient } from 'next-sanity';
 import HomeComponent from "@/component/homeComponent";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 const config = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -58,7 +59,8 @@ export default async function Home(props) {
   const posts = await client.fetch(query, { cache: 'no-cache' })  
   return (
     <>
-    <HomeComponent data={posts} />
+      <GoogleAnalytics trackPageViews />
+      <HomeComponent data={posts} />
 </>
   );
 }
