@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "./analitics";
+import Analytics  from "./analitics";
 
 import "./globals.css";
 
