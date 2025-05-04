@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import dynamic from 'next/dynamic';
+
 const GoogleAnalytics = dynamic(
   () => import("nextjs-google-analytics").then(mod => mod.GoogleAnalytics),
   { ssr: false }
