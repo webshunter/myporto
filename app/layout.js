@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { GoogleAnalytics } from "nextjs-google-analytics";
+const GoogleAnalytics = dynamic(
+  () => import("nextjs-google-analytics").then(mod => mod.GoogleAnalytics),
+  { ssr: false }
+);
 import "./globals.css";
 
 const geistSans = Geist({
