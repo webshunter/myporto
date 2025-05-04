@@ -1,6 +1,6 @@
 import {blockContentType} from './blockContentType'
 import {categoryType} from './categoryType'
-import {postType} from './postType'
+import {blog} from './blog'
 import {authorType} from './authorType'
 import {portofolioType} from './portofolio'
 import { workexperience } from './workexperience'
@@ -13,7 +13,7 @@ export const schema = {
   types: [
     blockContentType
     , categoryType
-    , postType
+    , blog
     , authorType
     , portofolioType
     , workexperience

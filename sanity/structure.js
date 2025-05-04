@@ -3,23 +3,34 @@ export const structure = (S) =>
   S.list()
     .title('Personal Website')
     .items([
-      S.documentTypeListItem('portofolio').title('Portofolio'),
-      S.documentTypeListItem('post').title('Posts'),
-      S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('author').title('Authors'),
+      // Blog Section
+      S.listItem()
+        .title('Blog')
+        .child(
+          S.list()
+            .title('Blog')
+            .items([
+              S.documentTypeListItem('blog').title('Blog Posts'),
+              S.documentTypeListItem('category').title('Categories'),
+              S.documentTypeListItem('author').title('Authors'),
+            ])
+        ),
       S.divider(),
+      // Portfolio Section
+      S.documentTypeListItem('portofolio').title('Portfolio'),
+      S.divider(),
+      // Other Content
       ...S.documentTypeListItems().filter(
         (item) => item.getId() && ![
-          'post'
-          , 'category'
-          , 'author'
-          , 'portofolio'
-          , 'workexperience'
-          , 'education'
-          , 'services'
-          , 'skill'
-          , 'project'
-        ]
-        .includes(item.getId()),
+          'blog',
+          'category',
+          'author',
+          'portofolio',
+          'workexperience',
+          'education',
+          'services',
+          'skill',
+          'project'
+        ].includes(item.getId()),
       ),
     ])
