@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Analytics  from "./analitics";
 
 import "./globals.css";
 
@@ -31,7 +30,17 @@ export default function RootLayout({ children }) {
         }}
       >
         {children}
-        <Analytics />
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-KEDW0DKNYH"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KEDW0DKNYH');
+          `
+        }}></script>
+        
       </body>
     </html>
   );
