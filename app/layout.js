@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,7 +21,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>Gugus Darmayanto</title> 
-        <link rel="icon" href="/icon.png" sizes="any" />      
+        <link rel="icon" href="/icon.png" sizes="any" />   
+        <GoogleAnalytics trackPageViews />   
       </head>
       <body
         style={{
