@@ -19,6 +19,9 @@ export const structure = (S) =>
       // Portfolio Section
       S.documentTypeListItem('portofolio').title('Portfolio'),
       S.divider(),
+      // Project Section
+      S.documentTypeListItem('project').title('Projects'),
+      S.divider(),
       // Other Content
       ...S.documentTypeListItems().filter(
         (item) => item.getId() && ![
