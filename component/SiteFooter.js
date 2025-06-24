@@ -12,9 +12,9 @@ export default function SiteFooter() {
           <h3 className="text-xl font-bold mb-4">Links</h3>
           <ul className="text-gray-400 space-y-2">
             <li><a href="/" className="hover:text-yellow-400">Home</a></li>
-            <li><a href="#about" className="hover:text-yellow-400">About</a></li>
-            <li><a href="#resume" className="hover:text-yellow-400">Resume</a></li>
-            <li><a href="#projects" className="hover:text-yellow-400">Projects</a></li>
+            <li><a href="/#about" className="hover:text-yellow-400">About</a></li>
+            <li><a href="/#resume" className="hover:text-yellow-400">Resume</a></li>
+            <li><a href="/#projects" className="hover:text-yellow-400">Projects</a></li>
           </ul>
         </div>
         <div>

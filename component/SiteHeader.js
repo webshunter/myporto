@@ -8,13 +8,13 @@ export default function SiteHeader() {
       </div>
       <nav id="nav-menu" className="hidden md:flex space-x-6">
         <Link href="/" className="hover:text-yellow-400">Home</Link>
-        <a href="#about" className="hover:text-yellow-400">About</a>
-        <a href="#resume" className="hover:text-yellow-400">Resume</a>
-        <a href="#services" className="hover:text-yellow-400">Services</a>
-        <a href="#skills" className="hover:text-yellow-400">Skills</a>
+        <Link href="/#about" className="hover:text-yellow-400">About</Link>
+        <Link href="/#resume" className="hover:text-yellow-400">Resume</Link>
+        <Link href="/#services" className="hover:text-yellow-400">Services</Link>
+        <Link href="/#skills" className="hover:text-yellow-400">Skills</Link>
         <Link href="/project" className="hover:text-yellow-400">Projects</Link>
         <Link href="/blog" className="hover:text-yellow-400">Blog</Link>
-        <a href="#contact" className="hover:text-yellow-400">Contact</a>
+        <Link href="/#contact" className="hover:text-yellow-400">Contact</Link>
       </nav>
       <div className="flex items-center space-x-4">
         <a
