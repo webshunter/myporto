@@ -174,7 +174,7 @@ export default function HomeComponent({data, blogPosts}) {
   {/* Hero Section */}
   <section
     id="home"
-    className="py-16 px-6 lg:px-16 flex flex-col md:flex-row items-center"
+    className="py-16 px-6 lg:px-16 flex flex-col-reverse md:flex-row items-center"
   >
     <div className="md:w-1/2 md:pr-8">
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -192,10 +192,12 @@ export default function HomeComponent({data, blogPosts}) {
         Hire Me
       </button>
     </div>
-    <div className="md:w-1/2 mt-8 md:mt-0">
-      <div
-        className="w-full h-64 md:h-96 bg-gray-800 rounded-lg bg-top bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("'+porto.foto+'")' }}
+    <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center items-center mb-8 md:mb-0">
+      <img
+        src={porto.foto}
+        alt={porto.name}
+        className="w-full h-64 md:h-96 object-cover rounded-lg bg-gray-800"
+        style={{ objectPosition: 'top' }}
       />
     </div>
   </section>
