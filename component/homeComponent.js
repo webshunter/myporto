@@ -619,10 +619,13 @@ export default function HomeComponent({data, blogPosts}) {
   </footer>
   <button
     id="scrollUpButton"
-    className="fixed bottom-4 right-4 bg-yellow-400 text-gray-900 p-2 rounded-full shadow-lg hidden"
+    className="fixed bottom-6 right-6 w-5 h-10 flex items-center justify-center bg-yellow-400 text-gray-900 rounded-full shadow-xl border border-yellow-300 hover:bg-yellow-500 hover:shadow-2xl transition-all duration-200 ring-1 ring-yellow-200/60 z-50 cursor-pointer hidden"
     onClick={scrollToTop}
+    aria-label="Scroll to top"
   >
-    ↑
+    <svg width="18" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 15V5M10 5L5 10M10 5L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   </button>
 </>
   );

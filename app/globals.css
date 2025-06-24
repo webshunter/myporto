@@ -93,7 +93,7 @@ body {
 }
 
 /* Scroll to top button */
-#scrollUpButton {
+/* #scrollUpButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -113,6 +113,7 @@ body {
   background: #f59e0b;
   transform: scale(1.1);
 }
+*/
 
 /* Line clamp utilities */
 .line-clamp-2 {
