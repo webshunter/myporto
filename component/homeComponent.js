@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Link from 'next/link';
 import { urlFor } from '@/lib/sanity';
 
-export default function HomeComponent({data, blogPosts}) {
+export default function HomeComponent({data, blogPosts, projectList}) {
 
     const [[porto], setPorto] = useState(data);
 
@@ -21,9 +21,11 @@ export default function HomeComponent({data, blogPosts}) {
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
           console.log(document)
           window.onscroll = function () { scrollFunction() };
+          scrollFunction();
 
           function scrollFunction() {
             const scrollUpButton = document.getElementById("scrollUpButton");
+            if (!scrollUpButton) return;
             if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
               scrollUpButton.style.display = "block";
             } else {
@@ -45,16 +47,6 @@ export default function HomeComponent({data, blogPosts}) {
     const serializers = {
         types: {},
     }    
-    function scrollFunction() {
-      const scrollUpButton = document.getElementById("scrollUpButton");
-      if (scrollUpButton) {
-        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
-          scrollUpButton.style.display = "block";
-        } else {
-          scrollUpButton.style.display = "none";
-        }
-      }
-    }
 
     function toggleMenu() {
         if (typeof document !== 'undefined' && typeof window !== 'undefined') {
@@ -340,17 +332,30 @@ export default function HomeComponent({data, blogPosts}) {
   <section id="projects" className="py-16 px-6 lg:px-16 bg-gray-900">
     <h2 className="text-3xl font-bold mb-8">My Projects</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {porto.project.map((project, i)=>{
-        return <div key={i} className="bg-black p-6 rounded-lg">
-          <img className="w-full mb-2" src={project.icon} alt={project.name} />
-          <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-          <p className="text-gray-400">{project.description}</p>
-          <div className="block-content">
-            <BlockContent blocks={project.details} serializers={serializers} />
-          </div>
-      </div>
-      })}
+      {projectList && projectList.length > 0 ? (
+        projectList.map((project, i) => (
+          <Link key={project._id} href={`/project/${project.slug.current}`}
+            className="bg-black p-6 rounded-lg hover:scale-105 transition-all duration-300 block border border-gray-800">
+            {project.icon && (
+              <img className="w-full mb-2 rounded" src={urlFor(project.icon).width(400).height(200).url()} alt={project.name} />
+            )}
+            <h3 className="text-xl font-bold mb-2">{project.name}</h3>
+            <p className="text-gray-400 line-clamp-2">{project.description}</p>
+            <span className="inline-block mt-2 text-yellow-400 font-medium">Lihat Detail →</span>
+          </Link>
+        ))
+      ) : (
+        <div className="col-span-2 text-center py-8 text-gray-400">Belum ada project.</div>
+      )}
     </div>
+    {projectList && projectList.length > 0 && (
+      <div className="text-center mt-8">
+        <Link href="/project" className="inline-flex items-center bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+          Lihat Lebih Banyak Project
+          <span className="ml-2">→</span>
+        </Link>
+      </div>
+    )}
   </section>
   {/* Blog Section */}
   <section id="blog" className="py-16 px-6 lg:px-16">

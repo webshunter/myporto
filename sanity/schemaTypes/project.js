@@ -1,5 +1,6 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {Rule} from 'sanity'
 
 export const project = defineType({
   name: 'project',
@@ -21,10 +22,37 @@ export const project = defineType({
             type: 'string',
         }),
         defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+        }),
+        defineField({
+            name: 'content',
+            title: 'Content',
+            type: 'array',
+            of: [{ type: 'block' }],
+        }),
+        defineField({
             name: 'details',
             title: 'Details Project', 
             type: 'array',
             of: [{ type: 'block' }],
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'name',
+                maxLength: 96,
+                slugify: input =>
+                  input
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '')
+                    .slice(0, 96),
+            },
+            validation: Rule => Rule.required(),
         }),
     ],
     preview: {

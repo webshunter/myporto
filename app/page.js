@@ -67,12 +67,22 @@ export default async function Home(props) {
     "categories": categories[]->title
   }`
 
+  // Query untuk mengambil 4 project terbaru
+  const projectQuery = `*[_type == "project"] | order(_createdAt desc)[0...4] {
+    _id,
+    name,
+    slug,
+    icon,
+    description
+  }`
+
   const posts = await client.fetch(query, { cache: 'no-cache' })
   const blogPosts = await client.fetch(blogQuery, { cache: 'no-cache' })
+  const projectList = await client.fetch(projectQuery, { cache: 'no-cache' })
   
   return (
     <>
-    <HomeComponent data={posts} blogPosts={blogPosts} />
+    <HomeComponent data={posts} blogPosts={blogPosts} projectList={projectList} />
 </>
   );
 }
