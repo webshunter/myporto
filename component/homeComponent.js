@@ -341,17 +341,17 @@ export default function HomeComponent({data, blogPosts, projectList}) {
             )}
             <h3 className="text-xl font-bold mb-2">{project.name}</h3>
             <p className="text-gray-400 line-clamp-2">{project.description}</p>
-            <span className="inline-block mt-2 text-yellow-400 font-medium">Lihat Detail →</span>
+            <span className="inline-block mt-2 text-yellow-400 font-medium">View Details →</span>
           </Link>
         ))
       ) : (
-        <div className="col-span-2 text-center py-8 text-gray-400">Belum ada project.</div>
+        <div className="col-span-2 text-center py-8 text-gray-400">No projects yet.</div>
       )}
     </div>
     {projectList && projectList.length > 0 && (
       <div className="text-center mt-8">
         <Link href="/project" className="inline-flex items-center bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
-          Lihat Lebih Banyak Project
+          View More Projects
           <span className="ml-2">→</span>
         </Link>
       </div>
