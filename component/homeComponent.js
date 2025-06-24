@@ -4,9 +4,10 @@ import { createClient } from 'next-sanity';
 const BlockContent = require('@sanity/block-content-to-react')
 import Moment from 'react-moment';
 import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { urlFor } from '@/lib/sanity';
 
-
-export default function HomeComponent({data}) {
+export default function HomeComponent({data, blogPosts}) {
 
     const [[porto], setPorto] = useState(data);
 
@@ -353,49 +354,88 @@ export default function HomeComponent({data}) {
   <section id="blog" className="py-16 px-6 lg:px-16">
     <h2 className="text-3xl font-bold mb-8">Blog</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div className="bg-gray-900 rounded-lg overflow-hidden">
-        <div className="bg-gray-800 h-48 w-full" />
-        <div className="p-6">
-          <h3 className="text-xl font-bold mb-2">
-            Building Mobile Apps with Flutter
-          </h3>
-          <p className="text-gray-400 mb-4">
-            Exploring Flutter for cross-platform mobile development...
-          </p>
-          <a href="#" className="text-yellow-400">
-            Read More
-          </a>
+      {blogPosts && blogPosts.length > 0 ? (
+        blogPosts.map((post, i) => (
+          <div key={i} className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-800">
+            {post.mainImage && (
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={urlFor(post.mainImage).width(400).height(200).url()}
+                  alt={post.mainImage.alt || post.title}
+                  fill
+                  className="object-cover hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+            )}
+            <div className="p-6">
+              <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
+                <time className="flex items-center">
+                  <span className="mr-2">📅</span>
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+                {post.author && (
+                  <span className="flex items-center">
+                    <span className="mr-2">👤</span>
+                    {post.author}
+                  </span>
+                )}
+              </div>
+              
+              <Link href={`/blog/${post.slug.current}`}>
+                <h3 className="text-xl font-bold mb-2 hover:text-yellow-400 transition-colors line-clamp-2">
+                  {post.title}
+                </h3>
+              </Link>
+              
+              {post.categories && post.categories.length > 0 && (
+                <div className="flex gap-2 mb-4 flex-wrap">
+                  {post.categories.map((category, index) => (
+                    <span
+                      key={index}
+                      className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs font-medium border border-yellow-400/30"
+                    >
+                      {category}
+                    </span>
+                  ))}
+                </div>
+              )}
+              
+              <p className="text-gray-400 mb-4 line-clamp-3">{post.excerpt}</p>
+              
+              <Link
+                href={`/blog/${post.slug.current}`}
+                className="inline-flex items-center text-yellow-400 hover:text-yellow-300 font-medium transition-colors group"
+              >
+                Read more 
+                <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="col-span-3 text-center py-16">
+          <div className="text-6xl mb-4">📝</div>
+          <h3 className="text-2xl font-bold mb-4">No Blog Posts Yet</h3>
+          <p className="text-gray-400">Blog posts will appear here soon!</p>
         </div>
-      </div>
-      <div className="bg-gray-900 rounded-lg overflow-hidden">
-        <div className="bg-gray-800 h-48 w-full" />
-        <div className="p-6">
-          <h3 className="text-xl font-bold mb-2">
-            Laravel vs CodeIgniter: Choosing the Right Framework
-          </h3>
-          <p className="text-gray-400 mb-4">
-            Comparing PHP frameworks for your next project...
-          </p>
-          <a href="#" className="text-yellow-400">
-            Read More
-          </a>
-        </div>
-      </div>
-      <div className="bg-gray-900 rounded-lg overflow-hidden">
-        <div className="bg-gray-800 h-48 w-full" />
-        <div className="p-6">
-          <h3 className="text-xl font-bold mb-2">
-            Database Optimization Techniques
-          </h3>
-          <p className="text-gray-400 mb-4">
-            Improving performance and efficiency of your database systems...
-          </p>
-          <a href="#" className="text-yellow-400">
-            Read More
-          </a>
-        </div>
-      </div>
+      )}
     </div>
+    {blogPosts && blogPosts.length > 0 && (
+      <div className="text-center mt-8">
+        <Link
+          href="/blog"
+          className="inline-flex items-center bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
+        >
+          View All Posts
+          <span className="ml-2">→</span>
+        </Link>
+      </div>
+    )}
   </section>
   {/* Freelancing Section */}
   <section className="py-16 px-6 lg:px-16 bg-gray-800 bg-opacity-50 relative text-center">

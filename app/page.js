@@ -55,10 +55,24 @@ export default async function Home(props) {
     }
   }`
 
-  const posts = await client.fetch(query, { cache: 'no-cache' })  
+  // Query untuk mengambil 3 blog post terbaru
+  const blogQuery = `*[_type == "blog"] | order(publishedAt desc)[0...3] {
+    _id,
+    title,
+    slug,
+    mainImage,
+    publishedAt,
+    excerpt,
+    "author": author->name,
+    "categories": categories[]->title
+  }`
+
+  const posts = await client.fetch(query, { cache: 'no-cache' })
+  const blogPosts = await client.fetch(blogQuery, { cache: 'no-cache' })
+  
   return (
     <>
-    <HomeComponent data={posts} />
+    <HomeComponent data={posts} blogPosts={blogPosts} />
 </>
   );
 }

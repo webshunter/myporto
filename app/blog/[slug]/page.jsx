@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, urlFor } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
+import BlogHeader from '@/component/BlogHeader'
 
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.slug)
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${post.title} | Blog`,
+    title: `${post.title} | Blog - Gugus Darmayanto`,
     description: post.excerpt,
   }
 }
@@ -30,57 +31,57 @@ export default async function BlogPost({ params }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <Link
-        href="/blog"
-        className="text-blue-600 hover:text-blue-800 mb-8 inline-block"
-      >
-        ← Back to Blog
-      </Link>
-      
-      <article className="prose lg:prose-xl mx-auto">
+    <div className="min-h-screen bg-black text-white">
+      <BlogHeader />
+
+      {/* Article Content */}
+      <article className="max-w-4xl mx-auto px-6 lg:px-16 py-12">
+        <Link href="/blog" className="inline-flex items-center text-yellow-400 hover:text-yellow-300 mb-8">
+          ← Back to Blog
+        </Link>
+        
         {post.mainImage && (
-          <div className="mb-8">
-            <Image
-              src={urlFor(post.mainImage).width(1200).height(600).url()}
-              alt={post.mainImage.alt || post.title}
-              width={1200}
-              height={600}
-              className="rounded-lg object-cover"
-            />
+          <div className="mb-8 rounded-lg overflow-hidden">
+            <div className="relative h-64 md:h-96">
+              <Image
+                src={urlFor(post.mainImage).width(1200).height(600).url()}
+                alt={post.mainImage.alt || post.title}
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         )}
         
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">{post.title}</h1>
         
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-8">
-          <time>
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </time>
-          {post.author && <span>by {post.author}</span>}
+        <div className="flex items-center gap-6 text-sm text-gray-400 mb-6">
+          <time>📅 {new Date(post.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}</time>
+          {post.author && <span>👤 {post.author}</span>}
         </div>
 
         {post.categories && post.categories.length > 0 && (
-          <div className="flex gap-2 mb-8">
+          <div className="flex gap-3 mb-6">
             {post.categories.map((category) => (
-              <span
-                key={category}
-                className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-sm"
-              >
+              <span key={category} className="bg-yellow-400/20 text-yellow-400 px-4 py-2 rounded-full text-sm border border-yellow-400/30">
                 {category}
               </span>
             ))}
           </div>
         )}
 
-        <div className="prose prose-lg">
+        <div className="prose prose-lg prose-invert max-w-none text-gray-300">
           <PortableText value={post.body} />
         </div>
       </article>
+
+      <footer className="py-8 px-6 lg:px-16 border-t border-gray-800 text-center">
+        <p className="text-gray-400">© 2024 Gugus Darmayanto. All rights reserved.</p>
+      </footer>
     </div>
   )
 } 
