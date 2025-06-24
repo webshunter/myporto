@@ -98,9 +98,12 @@ export const blog = defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-      group: 'content',
+      title: 'Content',
+      type: 'array',
+      of: [
+        { type: 'block' },
+        { type: 'code' }
+      ]
     }),
     defineField({
       name: 'seo',
