@@ -76,9 +76,9 @@ export default async function Home(props) {
     description
   }`
 
-  const posts = await client.fetch(query, { cache: 'no-cache' })
-  const blogPosts = await client.fetch(blogQuery, { cache: 'no-cache' })
-  const projectList = await client.fetch(projectQuery, { cache: 'no-cache' })
+  const posts = await client.fetch(query)
+  const blogPosts = await client.fetch(blogQuery)
+  const projectList = await client.fetch(projectQuery)
   
   return (
     <>
