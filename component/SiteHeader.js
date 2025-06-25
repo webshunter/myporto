@@ -14,6 +14,7 @@ export default function SiteHeader() {
         <Link href="/#skills" className="hover:text-yellow-400">Skills</Link>
         <Link href="/project" className="hover:text-yellow-400">Projects</Link>
         <Link href="/blog" className="hover:text-yellow-400">Blog</Link>
+        <Link href="/store" className="hover:text-yellow-400">App Store</Link>
         <Link href="/#contact" className="hover:text-yellow-400">Contact</Link>
       </nav>
       <div className="flex items-center space-x-4">
