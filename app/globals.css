@@ -67,17 +67,19 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.95);
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
 }
 
 .menu-overlay.active {
   display: flex;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .menu-overlay a {
@@ -86,10 +88,26 @@ body {
   font-size: 1.5rem;
   margin: 1rem 0;
   transition: color 0.3s ease;
+  position: relative;
 }
 
 .menu-overlay a:hover {
   color: #fbbf24;
+}
+
+.menu-overlay a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #fbbf24;
+  transition: width 0.3s ease;
+}
+
+.menu-overlay a:hover::after {
+  width: 100%;
 }
 
 /* Scroll to top button */

@@ -10,7 +10,7 @@ import { urlFor } from '@/lib/sanity';
 export default function HomeComponent({data, blogPosts, projectList}) {
 
     const [[porto], setPorto] = useState(data);
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(()=>{
       async function openAction(){
@@ -49,7 +49,29 @@ export default function HomeComponent({data, blogPosts, projectList}) {
     }    
 
     function toggleMenu() {
-        if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+        setIsMenuOpen(!isMenuOpen);
+        if (typeof document !== 'undefined') {
+            const menuOverlay = document.getElementById("menu-overlay");
+            if (menuOverlay) {
+                if (!isMenuOpen) {
+                    menuOverlay.classList.add("active");
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    menuOverlay.classList.remove("active");
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+    }
+
+    function closeMenu() {
+        setIsMenuOpen(false);
+        if (typeof document !== 'undefined') {
+            const menuOverlay = document.getElementById("menu-overlay");
+            if (menuOverlay) {
+                menuOverlay.classList.remove("active");
+                document.body.style.overflow = 'auto';
+            }
         }
     }
 
@@ -123,45 +145,53 @@ export default function HomeComponent({data, blogPosts, projectList}) {
       </button>
       <button
         id="hamburger"
-        className="md:hidden text-gray-400 hover:text-white"
+        className="md:hidden text-white hover:text-yellow-400 transition-colors duration-200"
         onClick={toggleMenu}
+        aria-label="Toggle menu"
       >
-        <i className="fas fa-bars" />
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </button>
     </div>
   </header>
   {/* Full-Screen Mobile Menu */}
   <div id="menu-overlay" className="menu-overlay">
     <button
-      className="absolute top-4 right-4 text-white"
+      className="absolute top-4 right-4 text-white hover:text-yellow-400 transition-colors duration-200"
       onClick={toggleMenu}
+      aria-label="Close menu"
     >
-      <i className="fas fa-times fa-2x" />
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
     </button>
-    <a href="#home" onClick={toggleMenu}>
-      Home
-    </a>
-    <a href="#about" onClick={toggleMenu}>
-      About
-    </a>
-    <a href="#resume" onClick={toggleMenu}>
-      Resume
-    </a>
-    <a href="#services" onClick={toggleMenu}>
-      Services
-    </a>
-    <a href="#skills" onClick={toggleMenu}>
-      Skills
-    </a>
-    <a href="#projects" onClick={toggleMenu}>
-      Projects
-    </a>
-    <a href="#blog" onClick={toggleMenu}>
-      Blog
-    </a>
-    <a href="#contact" onClick={toggleMenu}>
-      Contact
-    </a>
+    <div className="flex flex-col items-center space-y-6">
+      <a href="#home" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Home
+      </a>
+      <a href="#about" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        About
+      </a>
+      <a href="#resume" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Resume
+      </a>
+      <a href="#services" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Services
+      </a>
+      <a href="#skills" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Skills
+      </a>
+      <a href="#projects" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Projects
+      </a>
+      <a href="#blog" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Blog
+      </a>
+      <a href="#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        Contact
+      </a>
+    </div>
   </div>
   {/* Hero Section */}
   <section
