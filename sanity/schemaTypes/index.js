@@ -10,6 +10,7 @@ import {skill} from './skills'
 import { project } from './project'
 import app from './app'
 import transaction from './transaction'
+import { code } from './code'
 
 export const schema = {
   types: [
@@ -25,5 +26,6 @@ export const schema = {
     , project
     , app
     , transaction
+    , code
   ],
 }

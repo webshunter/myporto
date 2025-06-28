@@ -29,11 +29,7 @@ export const project = defineType({
         defineField({
             name: 'content',
             title: 'Content',
-            type: 'array',
-            of: [
-                { type: 'block' },
-                { type: 'code' }
-            ],
+            type: 'blockContent',
         }),
         defineField({
             name: 'details',

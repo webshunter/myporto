@@ -28,27 +28,13 @@ export default {
     {
       name: 'content',
       title: 'Detailed Content',
-      type: 'array',
-      of: [
-        {
-          type: 'block'
-        },
-        {
-          type: 'image',
-          options: {
-            hotspot: true
-          }
-        },
-        {
-          type: 'code'
-        }
-      ]
+      type: 'blockContent'
     },
     {
       name: 'category',
       title: 'Category',
       type: 'reference',
-      to: [{type: 'categoryType'}],
+      to: [{type: 'category'}],
       validation: Rule => Rule.required()
     },
     {
@@ -170,7 +156,7 @@ export default {
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{type: 'authorType'}]
+      to: [{type: 'author'}]
     }
   ],
   preview: {

@@ -22,6 +22,18 @@ export const structure = (S) =>
       // Project Section
       S.documentTypeListItem('project').title('Projects'),
       S.divider(),
+      // App Store Section
+      S.listItem()
+        .title('App Store')
+        .child(
+          S.list()
+            .title('App Store')
+            .items([
+              S.documentTypeListItem('app').title('Applications'),
+              S.documentTypeListItem('transaction').title('Transactions'),
+            ])
+        ),
+      S.divider(),
       // Other Content
       ...S.documentTypeListItems().filter(
         (item) => item.getId() && ![
@@ -33,7 +45,10 @@ export const structure = (S) =>
           'education',
           'services',
           'skill',
-          'project'
+          'project',
+          'app',
+          'transaction',
+          'code'
         ].includes(item.getId()),
       ),
     ])

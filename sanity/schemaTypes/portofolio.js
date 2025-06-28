@@ -1,7 +1,7 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
-import { workexperience }  from './workexperience.js'
+import { workexperience }  from './workexperience'
 
 export const portofolioType = defineType({
   name: 'portofolio',
