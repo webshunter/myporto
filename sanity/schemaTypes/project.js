@@ -32,10 +32,26 @@ export const project = defineType({
             type: 'blockContent',
         }),
         defineField({
-            name: 'details',
-            title: 'Details Project', 
+            name: 'gallery',
+            title: 'Gallery',
             type: 'array',
-            of: [{ type: 'block' }],
+            of: [
+                {
+                    type: 'image',
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: 'alt',
+                            type: 'string',
+                            title: 'Alternative Text',
+                        }
+                    ]
+                }
+            ],
+            options: {
+                layout: 'grid',
+            },
+            description: 'Upload multiple images for the project gallery.'
         }),
         defineField({
             name: 'slug',
