@@ -4,6 +4,7 @@ import BlockContentClient from '@/component/BlockContentClient';
 import Link from 'next/link';
 import SiteHeader from '@/component/SiteHeader';
 import SiteFooter from '@/component/SiteFooter';
+import ProjectGalleryWithModal from '@/component/ProjectGalleryWithModal';
 
 const builder = imageUrlBuilder(client);
 
@@ -40,22 +41,8 @@ export default async function ProjectDetailPage({ params }) {
         <div className="prose prose-invert max-w-none">
           <BlockContentClient blocks={project.content} />
         </div>
-        {project.gallery && project.gallery.length > 0 && (
-          <div className="mt-10">
-            <h2 className="text-2xl font-bold mb-4 text-yellow-400">Gallery</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {project.gallery.map((img, idx) => (
-                <div key={img._key || idx} className="bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
-                  <img
-                    src={builder.image(img).width(600).height(400).url()}
-                    alt={img.alt || `Gallery image ${idx + 1}`}
-                    className="object-cover w-full h-48"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Gallery with modal */}
+        <ProjectGalleryWithModal project={project} />
       </div>
       <SiteFooter />
     </>
