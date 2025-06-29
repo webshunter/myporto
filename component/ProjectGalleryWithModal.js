@@ -206,8 +206,9 @@ export default function ProjectGalleryWithModal({ project }) {
           {/* Modal Popup */}
           {modalOpen && (
             <div 
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-screen h-screen overflow-y-auto p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 w-screen h-screen overflow-y-auto p-4"
               onWheel={handleWheel}
+              ref={modalRef}
             >
               <button
                 className="absolute top-4 right-4 text-white text-3xl font-bold focus:outline-none z-10"
@@ -223,34 +224,29 @@ export default function ProjectGalleryWithModal({ project }) {
               >
                 ‹
               </button>
-              <div 
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-screen h-screen overflow-y-auto p-4"
-                ref={modalRef}
-              >
-                <img
-                  src={builder.image(project.gallery[currentIdx]).url()}
-                  alt={project.gallery[currentIdx].alt || `Gallery image ${currentIdx + 1}`}
-                  className={
-                    isZoomed
-                      ? 'object-contain cursor-grab shadow-lg rounded-lg select-none'
-                      : 'object-contain max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg cursor-zoom-in'
-                  }
-                  style={isZoomed ? { 
-                    width: '90vw',
-                    height: 'auto',
-                    maxWidth: '90vw',
-                    objectFit: 'contain',
-                    transform: `translate(${dragPosition.x}px, ${dragPosition.y}px)`,
-                    cursor: isDragging ? 'grabbing' : 'grab',
-                    transition: isDragging ? 'none' : 'transform 0.1s ease-out'
-                  } : {}}
-                  onClick={handleImageClick}
-                  onMouseDown={handleMouseDown}
-                  onTouchStart={handleTouchStart}
-                  title={isZoomed ? 'Click to zoom out, drag to move' : 'Click to zoom in'}
-                  draggable={false}
-                />
-              </div>
+              <img
+                src={builder.image(project.gallery[currentIdx]).url()}
+                alt={project.gallery[currentIdx].alt || `Gallery image ${currentIdx + 1}`}
+                className={
+                  isZoomed
+                    ? 'object-contain cursor-grab shadow-lg rounded-lg select-none'
+                    : 'object-contain max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg cursor-zoom-in'
+                }
+                style={isZoomed ? { 
+                  width: '90vw',
+                  height: 'auto',
+                  maxWidth: '90vw',
+                  objectFit: 'contain',
+                  transform: `translate(${dragPosition.x}px, ${dragPosition.y}px)`,
+                  cursor: isDragging ? 'grabbing' : 'grab',
+                  transition: isDragging ? 'none' : 'transform 0.1s ease-out'
+                } : {}}
+                onClick={handleImageClick}
+                onMouseDown={handleMouseDown}
+                onTouchStart={handleTouchStart}
+                title={isZoomed ? 'Click to zoom out, drag to move' : 'Click to zoom in'}
+                draggable={false}
+              />
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl font-bold focus:outline-none z-10"
                 onClick={nextImg}
