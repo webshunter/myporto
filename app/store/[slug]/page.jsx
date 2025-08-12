@@ -4,6 +4,8 @@ import StoreHeader from '../../../component/StoreHeader';
 import SiteFooter from '../../../component/SiteFooter';
 import BlockContentClient from '../../../component/BlockContentClient';
 import AppPurchaseForm from './AppPurchaseForm';
+import ScreenshotModal from './ScreenshotModal';
+import ScreenshotsSection from './ScreenshotsSection';
 
 // Fetch app by slug
 async function getApp(slug) {
@@ -43,7 +45,8 @@ async function getApp(slug) {
 
 // Generate metadata
 export async function generateMetadata({ params }) {
-  const app = await getApp(params.slug);
+  const resolvedParams = await params;
+  const app = await getApp(resolvedParams.slug);
   
   if (!app) {
     return {
@@ -63,7 +66,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function AppDetailPage({ params }) {
-  const app = await getApp(params.slug);
+  const resolvedParams = await params;
+  const app = await getApp(resolvedParams.slug);
 
   if (!app) {
     return (
@@ -85,7 +89,7 @@ export default async function AppDetailPage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 app-store-section">
       <StoreHeader />
       
       <main className="container mx-auto px-4 py-8">
@@ -98,9 +102,9 @@ export default async function AppDetailPage({ params }) {
                 {/* App Image */}
                 <div className="flex-shrink-0">
                   <img
-                    src={urlFor(app.mainImage).width(300).height(300).url()}
+                    src={urlFor(app.mainImage).width(400).fit('clip').url()}
                     alt={app.title}
-                    className="w-48 h-48 object-cover rounded-lg"
+                    className="w-48 h-48 object-contain rounded-lg bg-gray-100"
                   />
                 </div>
 
@@ -186,23 +190,7 @@ export default async function AppDetailPage({ params }) {
             </div>
 
             {/* Screenshots */}
-            {app.screenshots && app.screenshots.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Screenshots
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {app.screenshots.map((screenshot, index) => (
-                    <img
-                      key={index}
-                      src={urlFor(screenshot).width(400).height(300).url()}
-                      alt={`${app.title} screenshot ${index + 1}`}
-                      className="w-full h-auto rounded-lg"
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+            <ScreenshotsSection screenshots={app.screenshots} appTitle={app.title} />
 
             {/* Features */}
             {app.features && app.features.length > 0 && (

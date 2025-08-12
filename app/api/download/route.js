@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { client } from '../../../lib/sanity';
+import { liveClient } from '../../../lib/sanity';
 import crypto from 'crypto';
 
 export async function POST(request) {
@@ -16,7 +16,7 @@ export async function POST(request) {
       }
 
       // Get app details
-      const app = await client.fetch(`
+      const app = await liveClient.fetch(`
         *[_type == "app" && _id == $appId][0] {
           _id,
           title,
@@ -48,7 +48,7 @@ export async function POST(request) {
       downloadExpiry.setDate(downloadExpiry.getDate() + 7);
 
       // Create transaction record for free download
-      const transaction = await client.create({
+      const transaction = await liveClient.create({
         _type: 'transaction',
         transactionId: `FREE_${Date.now()}`,
         app: {
@@ -70,7 +70,7 @@ export async function POST(request) {
       });
 
       // Increment download count for the app
-      await client
+      await liveClient
         .patch(appId)
         .setIfMissing({ downloadCount: 0 })
         .inc({ downloadCount: 1 })
@@ -95,7 +95,7 @@ export async function POST(request) {
     }
 
     // Find transaction by download token
-    const transaction = await client.fetch(`
+    const transaction = await liveClient.fetch(`
       *[_type == "transaction" && downloadToken == $downloadToken && app._ref == $appId][0] {
         _id,
         status,
@@ -138,7 +138,7 @@ export async function POST(request) {
     }
 
     // Update download count and mark as downloaded
-    await client
+    await liveClient
       .patch(transaction._id)
       .set({
         downloadCount: (transaction.downloadCount || 0) + 1,

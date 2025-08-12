@@ -246,3 +246,39 @@ html {
 h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
+
+/* Store form text color overrides */
+.store-form input,
+.store-form textarea,
+.store-form select,
+.store-form label,
+.store-form .text-gray-700,
+.store-form .text-gray-900,
+.store-form .text-gray-600,
+.store-form .text-gray-500 {
+  color: inherit !important;
+}
+
+/* App store specific text colors */
+.app-store-section input,
+.app-store-section textarea,
+.app-store-section select,
+.app-store-section label {
+  color: #374151 !important;
+}
+
+.app-store-section .text-gray-700 {
+  color: #374151 !important;
+}
+
+.app-store-section .text-gray-900 {
+  color: #111827 !important;
+}
+
+.app-store-section .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.app-store-section .text-gray-500 {
+  color: #6b7280 !important;
+}

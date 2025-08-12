@@ -10,9 +10,9 @@ export default function AppCard({ app }) {
       <div className="relative h-48 bg-gray-200">
         {app.mainImage && (
           <img
-            src={urlFor(app.mainImage).width(400).height(300).url()}
+            src={urlFor(app.mainImage).width(400).fit('clip').url()}
             alt={app.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         )}
         

@@ -132,6 +132,9 @@ export default function HomeComponent({data, blogPosts, projectList}) {
       <a href="#blog" className="hover:text-yellow-400">
         Blog
       </a>
+      <Link href="/store" className="hover:text-yellow-400">
+        App Store
+      </Link>
       <a href="#contact" className="hover:text-yellow-400">
         Contact
       </a>
@@ -188,6 +191,9 @@ export default function HomeComponent({data, blogPosts, projectList}) {
       <a href="#blog" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
         Blog
       </a>
+      <Link href="/store" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+        App Store
+      </Link>
       <a href="#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
         Contact
       </a>
