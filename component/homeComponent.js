@@ -100,6 +100,14 @@ export default function HomeComponent({data, blogPosts, projectList}) {
       }
     }
 
+  // Dynamic years for description placeholders
+  const currentYear = new Date().getFullYear();
+  const exYears = Math.max(0, currentYear - 2018);
+  const moYears = Math.max(0, currentYear - 2022);
+  const descriptionProcessed = (porto.description || '')
+    .replace(/\{ex\}/g, exYears.toString())
+    .replace(/\{mo\}/g, moYears.toString());
+
   return (
     <>
   <header className="py-4 px-6 lg:px-16 flex justify-between items-center">
@@ -211,7 +219,7 @@ export default function HomeComponent({data, blogPosts, projectList}) {
         ))}
       </h1>
       <p className="text-gray-400 mb-4">
-        {porto.description}
+        {descriptionProcessed}
       </p>
       <button
         onClick={openWA}
@@ -579,7 +587,7 @@ export default function HomeComponent({data, blogPosts, projectList}) {
       <div>
         <h3 className="text-xl font-bold mb-4">About</h3>
         <p className="text-gray-400">
-          {porto.description}
+          {descriptionProcessed}
         </p>
       </div>
       <div>

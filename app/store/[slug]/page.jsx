@@ -28,7 +28,6 @@ async function getApp(slug) {
       features,
       tags,
       downloadCount,
-      rating,
       category->{
         title
       },
@@ -124,11 +123,6 @@ export default async function AppDetailPage({ params }) {
                       FREE
                     </span>
                     
-                    <div className="flex items-center">
-                      <span className="text-yellow-400 mr-1">⭐</span>
-                      <span className="text-gray-700">{app.rating || 0}/5</span>
-                    </div>
-
                     <div className="flex items-center text-gray-500">
                       <span className="mr-1">📥</span>
                       <span>{app.downloadCount || 0} downloads</span>

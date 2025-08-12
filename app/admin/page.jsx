@@ -19,6 +19,11 @@ const CARDS = [
     desc: 'Trigger revalidate untuk semua halaman app/store. Gunakan ini jika ada perubahan pada data aplikasi di Sanity.',
   },
   {
+    type: 'category',
+    title: 'Update Category',
+    desc: 'Trigger revalidate untuk kategori yang mempengaruhi apps dan blog. Gunakan ini jika ada perubahan kategori di Sanity.',
+  },
+  {
     type: 'transaction',
     title: 'Update Transaction',
     desc: 'Trigger revalidate untuk data transaksi. Gunakan ini jika ada perubahan pada data transaksi di Sanity.',

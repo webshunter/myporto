@@ -1,12 +1,20 @@
 export default function SiteFooter() {
+  // Dynamic About text (same logic as home)
+  const currentYear = new Date().getFullYear();
+  const exYears = Math.max(0, currentYear - 2018);
+  const moYears = Math.max(0, currentYear - 2022);
+
+  const aboutTemplate = 'Programmer with {ex} years of experience, focused on website and mobile application development for the last {mo} years. Interested in innovation and development of the latest technology in the IT world and programming.';
+  const aboutText = aboutTemplate
+    .replace(/\{ex\}/g, exYears.toString())
+    .replace(/\{mo\}/g, moYears.toString());
+
   return (
     <footer className="bg-gray-900 py-16 px-6 lg:px-16 mt-16">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div>
           <h3 className="text-xl font-bold mb-4">About</h3>
-          <p className="text-gray-400">
-            Programmer with 6 years of experience, focused on website and mobile application development for the last 2 years. Interested in innovation and development of the latest technology in the IT world and programming.
-          </p>
+          <p className="text-gray-400">{aboutText}</p>
         </div>
         <div>
           <h3 className="text-xl font-bold mb-4">Links</h3>
@@ -28,8 +36,10 @@ export default function SiteFooter() {
         </div>
         <div>
           <h3 className="text-xl font-bold mb-4">Contact</h3>
-          <p className="text-gray-400">Email: webshunter@gmail.com</p>
-          <p className="text-gray-400">GitHub: webshunter</p>
+          <p className="text-gray-400">Email: gugusdarmayanto.id@gmail.com</p>
+          <p className="text-gray-400">
+            GitHub: <a href="https://github.com/webshunter" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 transition-colors">webshunter</a>
+          </p>
         </div>
       </div>
       <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">

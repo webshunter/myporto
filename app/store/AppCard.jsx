@@ -18,15 +18,22 @@ export default function AppCard({ app }) {
         
         {/* Price Badge */}
         <div className="absolute top-3 right-3">
-          <span className="px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
-            FREE
+          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+            app.isFree 
+              ? 'bg-green-100 text-green-800' 
+              : 'bg-blue-100 text-blue-800'
+          }`}>
+            {app.isFree ? 'FREE' : `$${app.price}`}
           </span>
         </div>
 
         {/* App Type Badge */}
         <div className="absolute top-3 left-3">
           <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-            {app.appType}
+            {app.appType === 'web' ? 'Web App' : 
+             app.appType === 'mobile' ? 'Mobile' : 
+             app.appType === 'desktop' ? 'Desktop' : 
+             app.appType === 'plugin' ? 'Plugin' : app.appType}
           </span>
         </div>
       </div>
@@ -44,16 +51,12 @@ export default function AppCard({ app }) {
         {/* Category */}
         {app.category && (
           <p className="text-xs text-gray-500 mb-3">
-            {app.category.title}
+            {app.category}
           </p>
         )}
 
         {/* Stats */}
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <div className="flex items-center">
-            <span className="mr-2">⭐</span>
-            <span>{app.rating || 0}/5</span>
-          </div>
           <div className="flex items-center">
             <span className="mr-1">📥</span>
             <span>{app.downloadCount || 0}</span>
@@ -77,9 +80,13 @@ export default function AppCard({ app }) {
         {/* Action Button */}
         <Link
           href={`/store/${app.slug.current}`}
-          className="block w-full bg-green-600 text-white text-center py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200"
+          className={`block w-full text-center py-2 px-4 rounded-md transition-colors duration-200 ${
+            app.isFree 
+              ? 'bg-green-600 text-white hover:bg-green-700' 
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          }`}
         >
-          Download Free
+          {app.isFree ? 'Download Free' : 'View Details'}
         </Link>
       </div>
     </div>

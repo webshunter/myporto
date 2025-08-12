@@ -41,6 +41,14 @@ export async function POST(request) {
       }
     }
 
+    if (_type === 'category') {
+      revalidatePath('/store')
+      revalidatePath('/blog')
+      revalidateTag('category')
+      revalidateTag('app')
+      revalidateTag('blog')
+    }
+
     if (_type === 'transaction') {
       revalidatePath('/store')
       revalidateTag('transaction')

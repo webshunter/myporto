@@ -17,7 +17,7 @@ export const structure = (S) =>
         ),
       S.divider(),
       // Portfolio Section
-      S.documentTypeListItem('portofolio').title('Portfolio'),
+      S.documentTypeListItem('portfolio').title('Portfolio'),
       S.divider(),
       // Project Section
       S.documentTypeListItem('project').title('Projects'),
@@ -30,6 +30,7 @@ export const structure = (S) =>
             .title('App Store')
             .items([
               S.documentTypeListItem('app').title('Applications'),
+              S.documentTypeListItem('category').title('Categories'),
               S.documentTypeListItem('transaction').title('Transactions'),
             ])
         ),
@@ -40,7 +41,7 @@ export const structure = (S) =>
           'blog',
           'category',
           'author',
-          'portofolio',
+          'portfolio',
           'workexperience',
           'education',
           'services',
