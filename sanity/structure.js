@@ -17,7 +17,7 @@ export const structure = (S) =>
         ),
       S.divider(),
       // Portfolio Section
-      S.documentTypeListItem('portfolio').title('Portfolio'),
+      S.documentTypeListItem('portofolio').title('Portfolio'),
       S.divider(),
       // Project Section
       S.documentTypeListItem('project').title('Projects'),
@@ -41,7 +41,7 @@ export const structure = (S) =>
           'blog',
           'category',
           'author',
-          'portfolio',
+          'portofolio',
           'workexperience',
           'education',
           'services',
