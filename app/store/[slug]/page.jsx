@@ -113,7 +113,7 @@ export default async function AppDetailPage({ params }) {
                     {app.title}
                   </h1>
                   
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-900 mb-4">
                     {app.description}
                   </p>
 
@@ -221,7 +221,7 @@ export default async function AppDetailPage({ params }) {
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   About This App
                 </h2>
-                <div className="prose max-w-none">
+                <div className="prose max-w-none text-gray-900">
                   <BlockContentClient blocks={app.content} />
                 </div>
               </div>
