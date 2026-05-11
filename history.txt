@@ -1,1 +1,2 @@
 [2026-05-11] Set git config global: user.name="webshunter", user.email="webshunternet@gmail.com".
+[2026-05-11] Set git config lokal project (myporto): user.name="webshunter", user.email="webshunternet@gmail.com".
