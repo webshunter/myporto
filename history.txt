@@ -1,2 +1,3 @@
 [2026-05-11] Set git config global: user.name="webshunter", user.email="webshunternet@gmail.com".
 [2026-05-11] Set git config lokal project (myporto): user.name="webshunter", user.email="webshunternet@gmail.com".
+[2026-05-11] Ubah remote origin: dari https://github.com/webshunter/myporto.git -> https://webshunter@github.com/webshunter/myporto.git (fix 403 akibat credential slice-code).
