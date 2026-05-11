@@ -74,7 +74,7 @@ export default function BlogHeader() {
             onClick={() => window.open('https://wa.me/6285800455338', '_blank')}
             className="bg-yellow-400 text-black rounded-full px-4 py-2 text-xs md:text-sm font-bold whitespace-nowrap hover:bg-yellow-300 transition-colors"
           >
-            Hire Me
+            Contact
           </button>
           <button
             id="hamburger"

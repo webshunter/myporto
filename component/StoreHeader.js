@@ -58,7 +58,7 @@ export default function StoreHeader() {
             rel="noopener noreferrer"
             className="bg-yellow-400 text-black rounded-full px-4 py-2 text-xs md:text-sm font-bold whitespace-nowrap hover:bg-yellow-300 transition-colors duration-200"
           >
-            Hire Me
+            Contact
           </a>
           <button
             id="hamburger"

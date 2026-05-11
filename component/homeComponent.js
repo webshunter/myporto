@@ -152,7 +152,7 @@ export default function HomeComponent({data, blogPosts, projectList}) {
         onClick={openWA}        
         className="bg-yellow-400 text-black rounded-full px-4 py-2 text-xs md:text-sm font-bold whitespace-nowrap"
       >
-        Hire Me
+        Contact
       </button>
       <button
         id="hamburger"
@@ -225,7 +225,7 @@ export default function HomeComponent({data, blogPosts, projectList}) {
         onClick={openWA}
         className="bg-yellow-400 text-black rounded-full px-6 py-3 font-bold mt-4"
       >
-        Hire Me
+        Contact
       </button>
     </div>
     <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center items-center mb-8 md:mb-0">
@@ -498,7 +498,7 @@ export default function HomeComponent({data, blogPosts, projectList}) {
         className="bg-yellow-400 text-black rounded-full px-6 py-3 font-bold mt-4"
         onClick={openWA}
       >
-        Hire Me
+        Contact
       </button>
     </div>
   </section>
