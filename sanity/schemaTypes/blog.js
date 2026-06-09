@@ -99,7 +99,8 @@ export const blog = defineType({
     defineField({
       name: 'body',
       title: 'Content',
-      type: 'blockContent'
+      type: 'blockContent',
+      group: 'content',
     }),
     defineField({
       name: 'seo',

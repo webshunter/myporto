@@ -21,11 +21,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/icon.png" sizes="any" />   
       </head>
       <body
-        className={`${lato.variable} font-sans`}
-        style={{
-          background: "#000000",
-          color: "#fff",
-        }}
+        className={`${lato.variable} font-sans bg-navy text-gray-50 antialiased`}
       >
         {children}
         

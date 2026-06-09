@@ -34,35 +34,35 @@ export default function StoreHeader() {
 
   return (
     <>
-      <header className="py-4 px-6 lg:px-16 flex justify-between items-center">
-        <div className="text-xl font-bold text-gray-800">
-          <Link href="/" className="hover:text-yellow-400 transition-colors duration-200">
-            GStore
+      <header className="site-header">
+        <div className="text-xl font-bold tracking-tight">
+          <Link href="/store" className="hover:text-blue-400 transition-colors duration-200">
+            <span className="text-blue-400">G</span>Store
           </Link>
         </div>
-        <nav id="nav-menu" className="hidden md:flex space-x-6">
-          <Link href="/" className="text-gray-600 hover:text-yellow-400 transition-colors">Home</Link>
-          <Link href="/#about" className="text-gray-600 hover:text-yellow-400 transition-colors">About</Link>
-          <Link href="/#resume" className="text-gray-600 hover:text-yellow-400 transition-colors">Resume</Link>
-          <Link href="/#services" className="text-gray-600 hover:text-yellow-400 transition-colors">Services</Link>
-          <Link href="/#skills" className="text-gray-600 hover:text-yellow-400 transition-colors">Skills</Link>
-          <Link href="/project" className="text-gray-600 hover:text-yellow-400 transition-colors">Projects</Link>
-          <Link href="/blog" className="text-gray-600 hover:text-yellow-400 transition-colors">Blog</Link>
-          <Link href="/store" className="text-yellow-400 font-bold">App Store</Link>
-          <Link href="/#contact" className="text-gray-600 hover:text-yellow-400 transition-colors">Contact</Link>
+        <nav id="nav-menu" className="hidden md:flex space-x-6 text-gray-300">
+          <Link href="/" className="hover:text-blue-400 transition-colors">Home</Link>
+          <Link href="/#about" className="hover:text-blue-400 transition-colors">About</Link>
+          <Link href="/#resume" className="hover:text-blue-400 transition-colors">Resume</Link>
+          <Link href="/#services" className="hover:text-blue-400 transition-colors">Services</Link>
+          <Link href="/#skills" className="hover:text-blue-400 transition-colors">Skills</Link>
+          <Link href="/project" className="hover:text-blue-400 transition-colors">Projects</Link>
+          <Link href="/blog" className="hover:text-blue-400 transition-colors">Blog</Link>
+          <Link href="/store" className="text-blue-400 font-bold">App Store</Link>
+          <Link href="/#contact" className="hover:text-blue-400 transition-colors">Contact</Link>
         </nav>
         <div className="flex items-center space-x-4">
           <a
             href="https://wa.me/6285800455338"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-yellow-400 text-black rounded-full px-4 py-2 text-xs md:text-sm font-bold whitespace-nowrap hover:bg-yellow-300 transition-colors duration-200"
+            className="btn-primary-sm"
           >
             Contact
           </a>
           <button
             id="hamburger"
-            className="md:hidden text-gray-600 hover:text-yellow-400 transition-colors duration-200"
+            className="md:hidden text-white hover:text-blue-400 transition-colors duration-200"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -72,10 +72,9 @@ export default function StoreHeader() {
           </button>
         </div>
       </header>
-      {/* Full-Screen Mobile Menu */}
       <div id="menu-overlay" className="menu-overlay">
         <button
-          className="absolute top-4 right-4 text-white hover:text-yellow-400 transition-colors duration-200"
+          className="absolute top-4 right-4 text-white hover:text-blue-400 transition-colors duration-200"
           onClick={toggleMenu}
           aria-label="Close menu"
         >
@@ -84,35 +83,17 @@ export default function StoreHeader() {
           </svg>
         </button>
         <div className="flex flex-col items-center space-y-6">
-          <Link href="/" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Home
-          </Link>
-          <Link href="/#about" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            About
-          </Link>
-          <Link href="/#resume" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Resume
-          </Link>
-          <Link href="/#services" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Services
-          </Link>
-          <Link href="/#skills" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Skills
-          </Link>
-          <Link href="/project" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Projects
-          </Link>
-          <Link href="/blog" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Blog
-          </Link>
-          <Link href="/store" onClick={closeMenu} className="text-2xl font-semibold text-yellow-400 font-bold">
-            App Store
-          </Link>
-          <Link href="/#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
-            Contact
-          </Link>
+          <Link href="/" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Home</Link>
+          <Link href="/#about" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">About</Link>
+          <Link href="/#resume" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Resume</Link>
+          <Link href="/#services" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Services</Link>
+          <Link href="/#skills" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Skills</Link>
+          <Link href="/project" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Projects</Link>
+          <Link href="/blog" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Blog</Link>
+          <Link href="/store" onClick={closeMenu} className="text-2xl font-semibold text-blue-400 font-bold">App Store</Link>
+          <Link href="/#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">Contact</Link>
         </div>
       </div>
     </>
   );
-} 
+}

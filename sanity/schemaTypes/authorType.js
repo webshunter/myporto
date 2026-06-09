@@ -9,14 +9,18 @@ export const authorType = defineType({
   fields: [
     defineField({
       name: 'name',
+      title: 'Author Name',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
+      title: 'Slug',
       type: 'slug',
       options: {
         source: 'name',
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'image',

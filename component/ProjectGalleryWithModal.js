@@ -179,85 +179,102 @@ export default function ProjectGalleryWithModal({ project }) {
     }
   };
 
+  if (!project.gallery || project.gallery.length === 0) return null
+
   return (
-    <>
-      <div className="prose prose-invert max-w-none">
-        {/* Render block content di sini jika ingin, atau di parent */}
+    <section className="mt-12 pt-10 border-t border-gray-800">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="section-heading !mb-0">Project Gallery</h2>
+        <span className="text-sm text-gray-500">
+          {project.gallery.length} {project.gallery.length === 1 ? 'image' : 'images'}
+        </span>
       </div>
-      {project.gallery && project.gallery.length > 0 && (
-        <div className="mt-10">
-          <h2 className="text-2xl font-bold mb-4 text-yellow-400">Gallery</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {project.gallery.map((img, idx) => (
-              <button
-                key={img._key || idx}
-                className="bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center focus:outline-none"
-                onClick={() => openModal(idx)}
-                aria-label={`Open image ${idx + 1}`}
-              >
-                <img
-                  src={builder.image(img).width(600).height(400).fit('crop').crop('top').url()}
-                  alt={img.alt || `Gallery image ${idx + 1}`}
-                  className="object-contain w-full h-48 bg-black hover:opacity-80 transition"
-                />
-              </button>
-            ))}
-          </div>
-          {/* Modal Popup */}
-          {modalOpen && (
-            <div 
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 w-screen h-screen overflow-y-auto p-4"
-              onWheel={handleWheel}
-              ref={modalRef}
-            >
-              <button
-                className="absolute top-4 right-4 text-white text-3xl font-bold focus:outline-none z-10"
-                onClick={closeModal}
-                aria-label="Close gallery"
-              >
-                ×
-              </button>
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl font-bold focus:outline-none z-10"
-                onClick={prevImg}
-                aria-label="Previous image"
-              >
-                ‹
-              </button>
-              <img
-                src={builder.image(project.gallery[currentIdx]).url()}
-                alt={project.gallery[currentIdx].alt || `Gallery image ${currentIdx + 1}`}
-                className={
-                  isZoomed
-                    ? 'object-contain cursor-grab shadow-lg rounded-lg select-none'
-                    : 'object-contain max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg cursor-zoom-in'
-                }
-                style={isZoomed ? { 
-                  width: '90vw',
-                  height: 'auto',
-                  maxWidth: '90vw',
-                  objectFit: 'contain',
-                  transform: `translate(${dragPosition.x}px, ${dragPosition.y}px)`,
-                  cursor: isDragging ? 'grabbing' : 'grab',
-                  transition: isDragging ? 'none' : 'transform 0.1s ease-out'
-                } : {}}
-                onClick={handleImageClick}
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleTouchStart}
-                title={isZoomed ? 'Click to zoom out, drag to move' : 'Click to zoom in'}
-                draggable={false}
-              />
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl font-bold focus:outline-none z-10"
-                onClick={nextImg}
-                aria-label="Next image"
-              >
-                ›
-              </button>
+      <p className="text-gray-400 text-sm mb-6">Click any image to open fullscreen. Zoom and drag when expanded.</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {project.gallery.map((img, idx) => (
+          <button
+            key={img._key || idx}
+            type="button"
+            className="group relative rounded-xl overflow-hidden ring-1 ring-gray-800 border border-gray-800/80 bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            onClick={() => openModal(idx)}
+            aria-label={`Open image ${idx + 1}`}
+          >
+            <img
+              src={builder.image(img).width(600).height(400).fit('crop').crop('top').url()}
+              alt={img.alt || `Gallery image ${idx + 1}`}
+              className="object-cover w-full h-48 group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/40 transition-colors flex items-center justify-center">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/50 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                View fullscreen
+              </span>
             </div>
-          )}
+          </button>
+        ))}
+      </div>
+
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-navy/90 backdrop-blur-sm w-screen h-screen overflow-y-auto p-4"
+          onWheel={handleWheel}
+          ref={modalRef}
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-800/80 hover:bg-gray-700 text-white text-2xl font-bold focus:outline-none z-10 border border-gray-700 transition-colors"
+            onClick={closeModal}
+            aria-label="Close gallery"
+          >
+            ×
+          </button>
+
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-sm text-gray-400 bg-gray-900/80 px-4 py-1.5 rounded-full border border-gray-800 z-10">
+            {currentIdx + 1} / {project.gallery.length}
+          </div>
+
+          <button
+            type="button"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gray-800/80 hover:bg-blue-500/80 text-white text-2xl font-bold focus:outline-none z-10 border border-gray-700 transition-colors"
+            onClick={prevImg}
+            aria-label="Previous image"
+          >
+            ‹
+          </button>
+
+          <img
+            src={builder.image(project.gallery[currentIdx]).url()}
+            alt={project.gallery[currentIdx].alt || `Gallery image ${currentIdx + 1}`}
+            className={
+              isZoomed
+                ? 'object-contain cursor-grab shadow-glow rounded-xl select-none ring-1 ring-gray-700'
+                : 'object-contain max-w-[90vw] max-h-[80vh] rounded-xl shadow-glow cursor-zoom-in ring-1 ring-gray-700'
+            }
+            style={isZoomed ? {
+              width: '90vw',
+              height: 'auto',
+              maxWidth: '90vw',
+              objectFit: 'contain',
+              transform: `translate(${dragPosition.x}px, ${dragPosition.y}px)`,
+              cursor: isDragging ? 'grabbing' : 'grab',
+              transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+            } : {}}
+            onClick={handleImageClick}
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            title={isZoomed ? 'Click to zoom out, drag to move' : 'Click to zoom in'}
+            draggable={false}
+          />
+
+          <button
+            type="button"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gray-800/80 hover:bg-blue-500/80 text-white text-2xl font-bold focus:outline-none z-10 border border-gray-700 transition-colors"
+            onClick={nextImg}
+            aria-label="Next image"
+          >
+            ›
+          </button>
         </div>
       )}
-    </>
+    </section>
   );
 } 

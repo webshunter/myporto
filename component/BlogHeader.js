@@ -34,51 +34,51 @@ export default function BlogHeader() {
 
   return (
     <>
-      <header className="py-4 px-6 lg:px-16 flex justify-between items-center border-b border-gray-800 font-sans">
-        <div className="text-xl font-bold">
-          <Link href="/" className="hover:text-yellow-400 transition-colors">
-            <span style={{color:'yellow'}}>Gugus</span> Darmayanto
+      <header className="site-header">
+        <div className="text-xl font-bold tracking-tight">
+          <Link href="/" className="hover:text-blue-400 transition-colors">
+            <span className="text-blue-400">Gugus</span> Darmayanto
           </Link>
         </div>
-        <nav className="hidden md:flex space-x-6">
-          <Link href="/" className="hover:text-yellow-400 transition-colors">
+        <nav className="hidden md:flex space-x-6 text-gray-300">
+          <Link href="/" className="hover:text-blue-400 transition-colors">
             Home
           </Link>
-          <Link href="/#about" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#about" className="hover:text-blue-400 transition-colors">
             About
           </Link>
-          <Link href="/#resume" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#resume" className="hover:text-blue-400 transition-colors">
             Resume
           </Link>
-          <Link href="/#services" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#services" className="hover:text-blue-400 transition-colors">
             Services
           </Link>
-          <Link href="/#skills" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#skills" className="hover:text-blue-400 transition-colors">
             Skills
           </Link>
-          <Link href="/#projects" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#projects" className="hover:text-blue-400 transition-colors">
             Projects
           </Link>
-          <Link href="/blog" className="text-yellow-400 font-bold">
+          <Link href="/blog" className="text-blue-400 font-bold">
             Blog
           </Link>
-          <Link href="/store" className="hover:text-yellow-400 transition-colors">
+          <Link href="/store" className="hover:text-blue-400 transition-colors">
             App Store
           </Link>
-          <Link href="/#contact" className="hover:text-yellow-400 transition-colors">
+          <Link href="/#contact" className="hover:text-blue-400 transition-colors">
             Contact
           </Link>
         </nav>
         <div className="flex items-center space-x-4">
           <button
             onClick={() => window.open('https://wa.me/6285800455338', '_blank')}
-            className="bg-yellow-400 text-black rounded-full px-4 py-2 text-xs md:text-sm font-bold whitespace-nowrap hover:bg-yellow-300 transition-colors"
+            className="btn-primary-sm"
           >
             Contact
           </button>
           <button
             id="hamburger"
-            className="md:hidden text-white hover:text-yellow-400 transition-colors duration-200"
+            className="md:hidden text-white hover:text-blue-400 transition-colors duration-200"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -91,7 +91,7 @@ export default function BlogHeader() {
       {/* Full-Screen Mobile Menu */}
       <div id="menu-overlay" className="menu-overlay">
         <button
-          className="absolute top-4 right-4 text-white hover:text-yellow-400 transition-colors duration-200"
+          className="absolute top-4 right-4 text-white hover:text-blue-400 transition-colors duration-200"
           onClick={toggleMenu}
           aria-label="Close menu"
         >
@@ -100,31 +100,31 @@ export default function BlogHeader() {
           </svg>
         </button>
         <div className="flex flex-col items-center space-y-6">
-          <Link href="/" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Home
           </Link>
-          <Link href="/#about" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#about" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             About
           </Link>
-          <Link href="/#resume" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#resume" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Resume
           </Link>
-          <Link href="/#services" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#services" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Services
           </Link>
-          <Link href="/#skills" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#skills" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Skills
           </Link>
-          <Link href="/#projects" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#projects" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Projects
           </Link>
-          <Link href="/blog" onClick={closeMenu} className="text-2xl font-semibold text-yellow-400 font-bold">
+          <Link href="/blog" onClick={closeMenu} className="text-2xl font-semibold text-blue-400 font-bold">
             Blog
           </Link>
-          <Link href="/store" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/store" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             App Store
           </Link>
-          <Link href="/#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-yellow-400 transition-colors duration-200">
+          <Link href="/#contact" onClick={closeMenu} className="text-2xl font-semibold hover:text-blue-400 transition-colors duration-200">
             Contact
           </Link>
         </div>

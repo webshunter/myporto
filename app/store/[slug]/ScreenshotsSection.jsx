@@ -21,24 +21,27 @@ export default function ScreenshotsSection({ screenshots, appTitle }) {
   return (
     <>
       {screenshots && screenshots.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Screenshots
-          </h2>
+        <div className="store-panel mb-6">
+          <h2 className="text-xl font-semibold text-white mb-4">Screenshots</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {screenshots.map((screenshot, index) => (
-              <div key={index} className="relative group cursor-pointer" onClick={() => openModal(urlFor(screenshot).url(), `${appTitle} screenshot ${index + 1}`)}>
+              <button
+                key={index}
+                type="button"
+                className="relative rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                onClick={() => openModal(urlFor(screenshot).url(), `${appTitle} screenshot ${index + 1}`)}
+              >
                 <img
                   src={urlFor(screenshot).width(800).fit('clip').url()}
                   alt={`${appTitle} screenshot ${index + 1}`}
-                  className="w-full h-auto rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                  className="w-full h-auto bg-gray-800/50"
                 />
-              </div>
+              </button>
             ))}
           </div>
         </div>
       )}
-      
+
       <ScreenshotModal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -47,4 +50,4 @@ export default function ScreenshotsSection({ screenshots, appTitle }) {
       />
     </>
   );
-} 
+}

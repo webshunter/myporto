@@ -7,12 +7,12 @@ const components = {
       <div className="relative my-4">
         <button
           onClick={() => navigator.clipboard.writeText(value.code)}
-          className="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-1 rounded text-xs font-bold hover:bg-yellow-500 transition-colors z-10"
+          className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold hover:bg-blue-600 transition-colors z-10"
           title="Copy code"
         >
           Copy
         </button>
-        <pre className="bg-gray-900 text-yellow-200 rounded p-4 overflow-x-auto text-sm">
+        <pre className="bg-gray-900 text-blue-200 rounded p-4 overflow-x-auto text-sm">
           <code>{value.code}</code>
         </pre>
       </div>
@@ -28,7 +28,7 @@ const components = {
   },
   marks: {
     link: ({ value, children }) => (
-      <a href={value?.href} className="text-yellow-400 underline hover:text-yellow-300" target="_blank" rel="noopener noreferrer">
+      <a href={value?.href} className="text-blue-400 underline hover:text-blue-300" target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ),
@@ -38,7 +38,7 @@ const components = {
     h2: ({ children }) => <h2 className="text-2xl font-bold mt-6 mb-3">{children}</h2>,
     h3: ({ children }) => <h3 className="text-xl font-bold mt-4 mb-2">{children}</h3>,
     h4: ({ children }) => <h4 className="text-lg font-bold mt-3 mb-2">{children}</h4>,
-    blockquote: ({ children }) => <blockquote className="border-l-4 border-yellow-400 pl-4 italic text-gray-300 my-4">{children}</blockquote>,
+    blockquote: ({ children }) => <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-300 my-4">{children}</blockquote>,
     normal: ({ children }) => <p className="mb-4">{children}</p>,
   },
 }

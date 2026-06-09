@@ -108,11 +108,12 @@ export default function StorePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-navy app-store-section">
         <StoreHeader />
-        <main className="container mx-auto px-4 py-8">
+        <main className="max-w-6xl mx-auto px-6 lg:px-16 py-16">
           <div className="text-center">
-            <p className="text-gray-500">Loading apps...</p>
+            <div className="inline-block w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="text-gray-400">Loading apps...</p>
           </div>
         </main>
         <SiteFooter />
@@ -121,26 +122,25 @@ export default function StorePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 app-store-section">
+    <div className="min-h-screen bg-navy app-store-section">
       <StoreHeader />
-      
-      <main className="container mx-auto px-4 py-8">
-        {/* Header */}
+
+      <main className="max-w-6xl mx-auto px-6 lg:px-16 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            App Store
+          <p className="text-blue-400 font-medium mb-3 tracking-wide uppercase text-sm">Digital Products</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            App <span className="text-blue-400">Store</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover and download amazing applications, from web apps to mobile applications
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Discover and download applications — from web apps to mobile tools
           </p>
+          <div className="w-16 h-1 bg-blue-500 mx-auto mt-6 rounded-full" />
         </div>
 
-        {/* Filter and Search */}
         <div className="mb-8">
           <StoreFilters categories={categories} onFiltersChange={handleFiltersChange} />
         </div>
 
-        {/* Apps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredApps.map((app) => (
             <AppCard key={app._id} app={app} />
@@ -148,8 +148,10 @@ export default function StorePage() {
         </div>
 
         {filteredApps.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No applications found matching your filters.</p>
+          <div className="text-center py-16 store-panel">
+            <p className="text-4xl mb-4">🔍</p>
+            <p className="text-gray-300 text-lg font-medium mb-2">No apps found</p>
+            <p className="text-gray-500">Try adjusting your filters or search term.</p>
           </div>
         )}
       </main>

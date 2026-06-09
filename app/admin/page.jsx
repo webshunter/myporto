@@ -93,7 +93,7 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <form onSubmit={handleLogin} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-6 text-center text-yellow-400">Admin Login</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center text-blue-400">Admin Login</h2>
           <input
             type="text"
             placeholder="Username"
@@ -111,7 +111,7 @@ export default function AdminPage() {
           />
           <button
             type="submit"
-            className="w-full bg-yellow-400 text-black font-bold py-2 rounded hover:bg-yellow-300 transition-colors"
+            className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-colors"
           >
             Login
           </button>
@@ -124,15 +124,15 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white py-10">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-2xl text-center">
-        <h2 className="text-2xl font-bold mb-6 text-yellow-400">Admin Panel</h2>
+        <h2 className="text-2xl font-bold mb-6 text-blue-400">Admin Panel</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {CARDS.map(card => (
             <div key={card.type} className="bg-gray-900 rounded-lg p-6 shadow border border-gray-700 flex flex-col items-center">
-              <h3 className="text-lg font-bold mb-2 text-yellow-300">{card.title}</h3>
+              <h3 className="text-lg font-bold mb-2 text-blue-300">{card.title}</h3>
               <p className="text-gray-400 text-sm mb-4">{card.desc}</p>
               <button
                 onClick={() => handleTriggerUpdate(card.type)}
-                className="bg-yellow-400 text-black font-bold py-2 px-6 rounded hover:bg-yellow-300 transition-colors mb-2"
+                className="bg-blue-500 text-white font-bold py-2 px-6 rounded hover:bg-blue-600 transition-colors mb-2"
                 disabled={loading === card.type}
               >
                 {loading === card.type ? 'Updating...' : card.title}

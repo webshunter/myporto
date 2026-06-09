@@ -1,37 +1,60 @@
-import {DocumentTextIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import {CogIcon} from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
+import {
+  DEFAULT_SERVICE_ICON,
+  getServiceIconLabel,
+  SERVICE_ICON_LIST,
+} from '../../lib/serviceIcons'
 
 export const services = defineType({
   name: 'services',
-  title: 'Services',
+  title: 'Service',
   type: 'document',
-  icon: DocumentTextIcon,
+  icon: CogIcon,
   fields: [
-        defineField({
-            name: 'icon',
-            title: 'Icon',
-            type: 'image',
-            options: {
-                accept: '.svg'
-            }
-        }),
-        defineField({
-            name: 'name',
-            title: 'Name service',
-            type: 'string',
-        }),
-        defineField({
-            name: 'skill',
-            title: 'Skill',
-            type: 'text',
-        }),
-    ],
-    preview: {
-        select: {
-            title: 'name',
-        },
-        prepare(selection) {
-            return selection
-        },
+    defineField({
+      name: 'name',
+      title: 'Service Name',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'icon',
+      title: 'Font Awesome Icon',
+      type: 'string',
+      description: 'Pilih ikon untuk ditampilkan di homepage.',
+      options: {
+        list: SERVICE_ICON_LIST.map(({ value, title, hint }) => ({
+          title: hint ? `${title} — ${hint}` : title,
+          value,
+        })),
+        layout: 'dropdown',
+      },
+      initialValue: DEFAULT_SERVICE_ICON,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'skill',
+      title: 'Skills / Technologies',
+      type: 'text',
+      rows: 3,
+      description: 'List the tools or technologies used for this service.',
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'skill',
+      icon: 'icon',
     },
+    prepare({title, subtitle, icon}) {
+      const iconLabel = getServiceIconLabel(icon)
+      return {
+        title: title || 'Untitled Service',
+        subtitle: [iconLabel, subtitle ? subtitle.slice(0, 40) + (subtitle.length > 40 ? '…' : '') : null]
+          .filter(Boolean)
+          .join(' • '),
+      }
+    },
+  },
 })

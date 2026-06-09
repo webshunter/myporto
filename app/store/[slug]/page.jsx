@@ -4,10 +4,9 @@ import StoreHeader from '../../../component/StoreHeader';
 import SiteFooter from '../../../component/SiteFooter';
 import BlockContentClient from '../../../component/BlockContentClient';
 import AppPurchaseForm from './AppPurchaseForm';
-import ScreenshotModal from './ScreenshotModal';
 import ScreenshotsSection from './ScreenshotsSection';
+import Link from 'next/link';
 
-// Fetch app by slug
 async function getApp(slug) {
   const query = `
     *[_type == "app" && slug.current == $slug][0] {
@@ -38,19 +37,16 @@ async function getApp(slug) {
       publishedAt
     }
   `;
-  
+
   return await client.fetch(query, { slug });
 }
 
-// Generate metadata
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const app = await getApp(resolvedParams.slug);
-  
+
   if (!app) {
-    return {
-      title: 'App Not Found',
-    };
+    return { title: 'App Not Found' };
   }
 
   return {
@@ -70,17 +66,13 @@ export default async function AppDetailPage({ params }) {
 
   if (!app) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-navy app-store-section">
         <StoreHeader />
-        <main className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              App Not Found
-            </h1>
-            <p className="text-gray-600">
-              The application you're looking for doesn't exist.
-            </p>
-          </div>
+        <main className="max-w-6xl mx-auto px-6 lg:px-16 py-16 text-center">
+          <p className="text-4xl mb-4">📦</p>
+          <h1 className="text-2xl font-bold text-white mb-4">App Not Found</h1>
+          <p className="text-gray-400 mb-8">The application you&apos;re looking for doesn&apos;t exist.</p>
+          <Link href="/store" className="btn-primary inline-flex">Back to App Store</Link>
         </main>
         <SiteFooter />
       </div>
@@ -88,94 +80,85 @@ export default async function AppDetailPage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 app-store-section">
+    <div className="min-h-screen bg-navy app-store-section">
       <StoreHeader />
-      
-      <main className="container mx-auto px-4 py-8">
+
+      <main className="max-w-6xl mx-auto px-6 lg:px-16 py-8">
+        <Link href="/store" className="link-accent inline-flex items-center gap-2 mb-8 text-sm">
+          ← Back to App Store
+        </Link>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* App Header */}
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div className="store-panel mb-6">
               <div className="flex flex-col md:flex-row gap-6">
-                {/* App Image */}
                 <div className="flex-shrink-0">
-                  <img
-                    src={urlFor(app.mainImage).width(400).fit('clip').url()}
-                    alt={app.title}
-                    className="w-48 h-48 object-contain rounded-lg bg-gray-100"
-                  />
+                  <div className="w-48 h-48 rounded-xl bg-gray-800/80 border border-gray-800 flex items-center justify-center p-2">
+                    <img
+                      src={urlFor(app.mainImage).width(400).fit('clip').url()}
+                      alt={app.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                 </div>
 
-                {/* App Info */}
                 <div className="flex-1">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                    {app.title}
-                  </h1>
-                  
-                  <p className="text-gray-900 mb-4">
-                    {app.description}
-                  </p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="badge-accent capitalize">{app.appType}</span>
+                    {app.category && (
+                      <span className="text-xs text-gray-500 bg-gray-800/60 px-2 py-1 rounded-md border border-gray-700/50">
+                        {app.category.title}
+                      </span>
+                    )}
+                  </div>
 
-                  {/* Price and Rating */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-2xl font-bold text-green-600">
-                      FREE
-                    </span>
-                    
-                    <div className="flex items-center text-gray-500">
-                      <span className="mr-1">📥</span>
+                  <h1 className="text-3xl font-bold text-white mb-3">{app.title}</h1>
+                  <p className="text-gray-400 mb-5 leading-relaxed">{app.description}</p>
+
+                  <div className="flex flex-wrap items-center gap-4 mb-5">
+                    {app.isFree ? (
+                      <span className="store-badge-free text-lg px-4 py-1.5">FREE</span>
+                    ) : (
+                      <span className="store-badge-paid text-lg px-4 py-1.5">${app.price}</span>
+                    )}
+                    <div className="flex items-center text-gray-500 text-sm">
+                      <span className="mr-1.5">📥</span>
                       <span>{app.downloadCount || 0} downloads</span>
                     </div>
                   </div>
 
-                  {/* App Details */}
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="font-medium text-gray-700">Type:</span>
-                      <span className="ml-2 text-gray-600">{app.appType}</span>
-                    </div>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
                     {app.version && (
-                      <div>
-                        <span className="font-medium text-gray-700">Version:</span>
-                        <span className="ml-2 text-gray-600">{app.version}</span>
+                      <div className="p-3 rounded-lg bg-gray-800/40 border border-gray-800">
+                        <span className="text-gray-500 block text-xs mb-0.5">Version</span>
+                        <span className="text-gray-200">{app.version}</span>
                       </div>
                     )}
                     {app.fileSize && (
-                      <div>
-                        <span className="font-medium text-gray-700">Size:</span>
-                        <span className="ml-2 text-gray-600">{app.fileSize} MB</span>
-                      </div>
-                    )}
-                    {app.category && (
-                      <div>
-                        <span className="font-medium text-gray-700">Category:</span>
-                        <span className="ml-2 text-gray-600">{app.category.title}</span>
+                      <div className="p-3 rounded-lg bg-gray-800/40 border border-gray-800">
+                        <span className="text-gray-500 block text-xs mb-0.5">Size</span>
+                        <span className="text-gray-200">{app.fileSize} MB</span>
                       </div>
                     )}
                   </div>
 
-                  {/* Tags */}
                   {app.tags && app.tags.length > 0 && (
-                    <div className="mt-4">
-                      <div className="flex flex-wrap gap-2">
-                        {app.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {app.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-gray-800/60 text-gray-400 text-sm rounded-full border border-gray-700/50"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   )}
 
-                  {/* Payment Notice for Paid Apps */}
                   {!app.isFree && (
-                    <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-                      <p className="text-sm text-blue-800">
-                        💳 Payment integration with Midtrans coming soon. Currently available for free download.
+                    <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                      <p className="text-sm text-blue-300">
+                        Payment integration with Midtrans coming soon. Currently available for free download.
                       </p>
                     </div>
                   )}
@@ -183,54 +166,43 @@ export default async function AppDetailPage({ params }) {
               </div>
             </div>
 
-            {/* Screenshots */}
             <ScreenshotsSection screenshots={app.screenshots} appTitle={app.title} />
 
-            {/* Features */}
             {app.features && app.features.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Features
-                </h2>
-                <ul className="space-y-2">
+              <div className="store-panel mb-6">
+                <h2 className="text-xl font-semibold text-white mb-4">Features</h2>
+                <ul className="space-y-3">
                   {app.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span className="text-gray-700">{feature}</span>
+                    <li key={index} className="flex items-start text-gray-300 text-sm">
+                      <span className="text-emerald-400 mr-2 mt-0.5">✓</span>
+                      {feature}
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {/* System Requirements */}
             {app.systemRequirements && (
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  System Requirements
-                </h2>
-                <p className="text-gray-700 whitespace-pre-line">
+              <div className="store-panel mb-6">
+                <h2 className="text-xl font-semibold text-white mb-4">System Requirements</h2>
+                <p className="text-gray-400 whitespace-pre-line text-sm leading-relaxed">
                   {app.systemRequirements}
                 </p>
               </div>
             )}
 
-            {/* Detailed Content */}
             {app.content && (
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  About This App
-                </h2>
-                <div className="prose max-w-none text-gray-900">
+              <div className="store-panel">
+                <h2 className="text-xl font-semibold text-white mb-4">About This App</h2>
+                <div className="prose prose-invert max-w-none">
                   <BlockContentClient blocks={app.content} />
                 </div>
               </div>
             )}
           </div>
 
-          {/* Sidebar - Purchase Form */}
           <div className="lg:col-span-1">
-            <div className="sticky top-8">
+            <div className="sticky top-24">
               <AppPurchaseForm app={app} />
             </div>
           </div>
@@ -240,4 +212,4 @@ export default async function AppDetailPage({ params }) {
       <SiteFooter />
     </div>
   );
-} 
+}

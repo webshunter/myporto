@@ -1,163 +1,183 @@
-export default {
+import {MobileDeviceIcon} from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
+
+export default defineType({
   name: 'app',
   title: 'Application',
   type: 'document',
+  icon: MobileDeviceIcon,
+  groups: [
+    {name: 'overview', title: 'Overview', default: true},
+    {name: 'media', title: 'Media'},
+    {name: 'pricing', title: 'Pricing'},
+    {name: 'details', title: 'App Details'},
+    {name: 'publishing', title: 'Publishing'},
+  ],
   fields: [
-    {
+    defineField({
       name: 'title',
       title: 'App Title',
       type: 'string',
-      validation: Rule => Rule.required()
-    },
-    {
+      group: 'overview',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: Rule => Rule.required()
-    },
-    {
+      group: 'overview',
+      options: {source: 'title', maxLength: 96},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Short Description',
       type: 'text',
-      validation: Rule => Rule.required()
-    },
-    {
-      name: 'content',
-      title: 'Detailed Content',
-      type: 'blockContent'
-    },
-    {
+      group: 'overview',
+      rows: 3,
+      description: 'Shown on the App Store listing card.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
+      group: 'overview',
       to: [{type: 'category'}],
-      validation: Rule => Rule.required()
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'mainImage',
       title: 'Main Image',
       type: 'image',
-      options: {
-        hotspot: true
-      },
-      validation: Rule => Rule.required()
-    },
-    {
+      group: 'media',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'screenshots',
       title: 'Screenshots',
       type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true
-          }
-        }
-      ]
-    },
-    {
+      group: 'media',
+      of: [{type: 'image', options: {hotspot: true}}],
+      options: {layout: 'grid'},
+      description: 'Additional screenshots shown on the app detail page.',
+    }),
+    defineField({
+      name: 'content',
+      title: 'Detailed Content',
+      type: 'blockContent',
+      group: 'details',
+    }),
+    defineField({
       name: 'price',
       title: 'Price (USD)',
       type: 'number',
-      validation: Rule => Rule.required().min(0)
-    },
-    {
+      group: 'pricing',
+      validation: (Rule) => Rule.required().min(0),
+    }),
+    defineField({
       name: 'isFree',
-      title: 'Is Free App',
+      title: 'Free App',
       type: 'boolean',
-      initialValue: false
-    },
-    {
+      group: 'pricing',
+      initialValue: false,
+      description: 'When enabled, the app is shown as FREE regardless of price.',
+    }),
+    defineField({
       name: 'appType',
       title: 'App Type',
       type: 'string',
+      group: 'details',
       options: {
         list: [
           {title: 'Web Application', value: 'web'},
           {title: 'Mobile App (APK)', value: 'mobile'},
           {title: 'Desktop Application', value: 'desktop'},
-          {title: 'Plugin/Extension', value: 'plugin'}
-        ]
+          {title: 'Plugin / Extension', value: 'plugin'},
+        ],
       },
-      validation: Rule => Rule.required()
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'downloadUrl',
-      title: 'Download URL (Google Drive/Dropbox)',
+      title: 'Download URL',
       type: 'url',
-      description: 'Direct download link to the application file'
-    },
-    {
+      group: 'details',
+      description: 'Direct link to Google Drive, Dropbox, or other file host.',
+    }),
+    defineField({
       name: 'fileSize',
       title: 'File Size (MB)',
       type: 'number',
-      description: 'Size of the application file in MB'
-    },
-    {
+      group: 'details',
+    }),
+    defineField({
       name: 'version',
       title: 'Version',
       type: 'string',
-      description: 'Current version of the application'
-    },
-    {
+      group: 'details',
+    }),
+    defineField({
       name: 'systemRequirements',
       title: 'System Requirements',
       type: 'text',
-      description: 'Minimum system requirements to run the application'
-    },
-    {
+      group: 'details',
+      rows: 3,
+    }),
+    defineField({
       name: 'features',
-      title: 'Features',
+      title: 'Key Features',
       type: 'array',
+      group: 'details',
       of: [{type: 'string'}],
-      description: 'List of key features'
-    },
-    {
+    }),
+    defineField({
       name: 'tags',
       title: 'Tags',
       type: 'array',
+      group: 'details',
       of: [{type: 'string'}],
-      options: {
-        layout: 'tags'
-      }
-    },
-    {
+      options: {layout: 'tags'},
+    }),
+    defineField({
       name: 'publishedAt',
-      title: 'Published at',
+      title: 'Published At',
       type: 'datetime',
-      validation: Rule => Rule.required()
-    },
-    {
+      group: 'publishing',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'isActive',
-      title: 'Is Active',
+      title: 'Visible in Store',
       type: 'boolean',
+      group: 'publishing',
       initialValue: true,
-      description: 'Set to false to hide from store'
-    },
-    {
-      name: 'downloadCount',
-      title: 'Download Count',
-      type: 'number',
-      initialValue: 0,
-      readOnly: true
-    },
-    {
-      name: 'rating',
-      title: 'Rating',
-      type: 'number',
-      initialValue: 0,
-      validation: Rule => Rule.min(0).max(5)
-    },
-    {
+      description: 'Turn off to hide this app from the public store.',
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{type: 'author'}]
-    }
+      group: 'publishing',
+      to: [{type: 'author'}],
+    }),
+    defineField({
+      name: 'downloadCount',
+      title: 'Download Count',
+      type: 'number',
+      group: 'publishing',
+      initialValue: 0,
+      readOnly: true,
+    }),
+    defineField({
+      name: 'rating',
+      title: 'Rating (0–5)',
+      type: 'number',
+      group: 'publishing',
+      initialValue: 0,
+      validation: (Rule) => Rule.min(0).max(5),
+    }),
   ],
   preview: {
     select: {
@@ -165,13 +185,17 @@ export default {
       author: 'author.name',
       media: 'mainImage',
       price: 'price',
-      isFree: 'isFree'
+      isFree: 'isFree',
+      isActive: 'isActive',
     },
-    prepare(selection) {
-      const {author, price, isFree} = selection
-      return Object.assign({}, selection, {
-        subtitle: isFree ? 'Free' : `$${price} - by ${author || 'Unknown'}`
-      })
-    }
-  }
-} 
+    prepare({title, author, media, price, isFree, isActive}) {
+      const priceLabel = isFree ? 'Free' : `$${price ?? 0}`
+      const status = isActive === false ? 'Hidden' : 'Active'
+      return {
+        title: title || 'Untitled App',
+        subtitle: `${priceLabel} • ${status}${author ? ` • ${author}` : ''}`,
+        media,
+      }
+    },
+  },
+})
