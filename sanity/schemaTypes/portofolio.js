@@ -26,7 +26,7 @@ export const portofolioType = defineType({
       type: 'image',
       group: 'profile',
       options: {hotspot: true},
-      description: 'Main photo shown on the homepage.',
+      description: 'Main photo shown on the homepage. Use a transparent PNG for best results.',
     }),
     defineField({
       name: 'headtitle',

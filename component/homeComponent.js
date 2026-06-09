@@ -209,79 +209,167 @@ export default function HomeComponent({data, blogPosts, projectList}) {
   {/* Hero Section */}
   <section
     id="home"
-    className="relative py-20 px-6 lg:px-16 flex flex-col-reverse md:flex-row items-center overflow-hidden"
+    className="hero-section relative py-16 lg:py-20 px-6 lg:px-12 xl:px-16 overflow-hidden min-h-[85vh] md:min-h-[88vh] flex items-center"
   >
-    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-600/5 pointer-events-none" />
-    <div className="md:w-1/2 md:pr-8 relative z-10">
-      <p className="text-blue-400 font-medium mb-3 tracking-wide uppercase text-sm">Fullstack Developer</p>
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        {porto.headtitle.split(' ').map((word, index) => (
-            <span className={word.toLowerCase() === 'programmer' ? 'text-blue-400' : ''} key={index}>{word} </span>
-        ))}
-      </h1>
-      <p className="text-gray-400 mb-8 text-lg leading-relaxed max-w-xl">
-        {descriptionProcessed}
-      </p>
-      <div className="flex flex-wrap gap-4">
-        <button onClick={openWA} className="btn-primary">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-          Hire Me on Fiverr
-        </button>
-        <button onClick={openResume} className="btn-outline">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-          Download CV
-        </button>
+    <div className="hero-bg-grid" aria-hidden="true" />
+    <div className="hero-orb hero-orb-1" aria-hidden="true" />
+    <div className="hero-orb hero-orb-2" aria-hidden="true" />
+    <div className="hero-orb hero-orb-3" aria-hidden="true" />
+
+    <div className="hero-inner">
+      <div className="hero-content">
+        <p className="text-blue-400 font-medium mb-3 tracking-wide uppercase text-sm hero-fade-in">Fullstack Developer</p>
+        <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl font-bold mb-6 leading-tight hero-fade-in hero-fade-in-delay-1">
+          {porto.headtitle.split(' ').map((word, index) => (
+              <span className={word.toLowerCase() === 'programmer' ? 'text-blue-400' : ''} key={index}>{word} </span>
+          ))}
+        </h1>
+        <p className="text-gray-400 mb-8 text-base md:text-lg leading-relaxed hero-fade-in hero-fade-in-delay-2">
+          {descriptionProcessed}
+        </p>
+        <div className="flex flex-wrap gap-4 hero-fade-in hero-fade-in-delay-3">
+          <button onClick={openWA} className="btn-primary">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+            Hire Me on Fiverr
+          </button>
+          <button onClick={openResume} className="btn-outline">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            Download CV
+          </button>
+        </div>
       </div>
-    </div>
-    <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center items-center mb-8 md:mb-0 relative z-10">
-      <div className="relative w-full max-w-md">
-        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl blur opacity-20" />
-        <img
-          src={porto.foto}
-          alt={porto.name}
-          className="relative w-full h-64 md:h-96 object-cover rounded-2xl bg-gray-800 ring-1 ring-gray-700/50"
-          style={{ objectPosition: 'top' }}
-        />
+
+      <div className="hero-photo-wrap">
+        <div className="hero-photo-ring" aria-hidden="true" />
+        <div className="hero-photo-ring hero-photo-ring-2" aria-hidden="true" />
+        <div className="hero-photo-glow" aria-hidden="true" />
+        <div className="hero-photo-platform" aria-hidden="true" />
+        <div className="hero-photo-frame">
+          <img
+            src={porto.foto}
+            alt={porto.name}
+            className="hero-photo-img"
+          />
+        </div>
+        <div className="hero-status-badge">
+          <span className="hero-status-dot" />
+          Available for projects
+        </div>
       </div>
     </div>
   </section>
   {/* About Me Section */}
-  <section id="about" className="py-16 px-6 lg:px-16 bg-navy-surface/50 border-y border-gray-800/50">
-    <h2 className="section-heading">About Me</h2>
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/3 mb-8 md:mb-0">
-        <div
-          className="w-full h-64 md:h-80 rounded-2xl bg-cover bg-top bg-center bg-no-repeat ring-1 ring-gray-700/50"
-          style={{ backgroundImage: 'url("'+porto.foto+'")' }}
-        />
-      </div>
-      <div className="md:w-2/3 md:pl-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <p className="text-gray-400 mb-2">Name:</p>
-            <p className="font-medium">{porto.name}</p>
+  <section id="about" className="about-section py-16 px-6 lg:px-16 bg-navy-surface/50 border-y border-gray-800/50">
+    <div className="max-w-6xl mx-auto">
+      <p className="text-blue-400 font-medium mb-3 tracking-wide uppercase text-sm">Get to Know Me</p>
+      <h2 className="section-heading">About Me</h2>
+      <p className="text-gray-400 -mt-4 mb-12 max-w-2xl leading-relaxed">
+        A quick overview of who I am, where I&apos;m based, and how to connect with me.
+      </p>
+
+      <div className="about-grid">
+        <div className="about-visual">
+          <div className="about-photo-wrap">
+            <div className="about-photo-ring" aria-hidden="true" />
+            <div className="about-photo-glow" aria-hidden="true" />
+            <img
+              src={porto.foto}
+              alt={porto.name}
+              className="about-photo-img"
+            />
+            <div className="about-photo-badge">
+              {porto.headtitle || 'Fullstack Developer'}
+            </div>
           </div>
-          <div>
-            <p className="text-gray-400 mb-2">GitHub:</p>
-            <p className="font-medium">{porto.github}</p>
-          </div>
-          <div>
-            <p className="text-gray-400 mb-2">Location:</p>
-            <p className="font-medium">
-              {porto.location}
-            </p>
-          </div>
-          <div>
-            <p className="text-gray-400 mb-2">Languages:</p>
-            <p className="font-medium">
-                {porto.language}
-            </p>
+
+          <div className="about-stats">
+            <div className="about-stat-card">
+              <span className="about-stat-value">{exYears}+</span>
+              <span className="about-stat-label">Years Experience</span>
+            </div>
+            <div className="about-stat-card">
+              <span className="about-stat-value">{porto.skills?.length || 0}</span>
+              <span className="about-stat-label">Core Skills</span>
+            </div>
+            <div className="about-stat-card">
+              <span className="about-stat-value">{porto.services?.length || 0}</span>
+              <span className="about-stat-label">Services</span>
+            </div>
           </div>
         </div>
-        <button onClick={openResume} className="btn-outline mt-8">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-          Download CV
-        </button>
+
+        <div className="about-content">
+          <p className="about-intro">{descriptionProcessed}</p>
+
+          <div className="about-info-grid">
+            <div className="about-info-card">
+              <div className="about-info-icon">
+                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div>
+                <p className="about-info-label">Full Name</p>
+                <p className="about-info-value">{porto.name}</p>
+              </div>
+            </div>
+
+            <div className="about-info-card">
+              <div className="about-info-icon">
+                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="about-info-label">Location</p>
+                <p className="about-info-value">{porto.location}</p>
+              </div>
+            </div>
+
+            <div className="about-info-card">
+              <div className="about-info-icon">
+                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+              </div>
+              <div>
+                <p className="about-info-label">Languages</p>
+                <p className="about-info-value">{porto.language}</p>
+              </div>
+            </div>
+
+            {porto.github && (
+              <a
+                href={porto.github.startsWith('http') ? porto.github : `https://github.com/${porto.github.replace(/^@/, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-info-card about-info-card-link group"
+              >
+                <div className="about-info-icon">
+                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <p className="about-info-label">GitHub</p>
+                  <p className="about-info-value group-hover:text-blue-400 transition-colors truncate">{porto.github}</p>
+                </div>
+              </a>
+            )}
+          </div>
+
+          <div className="about-actions">
+            <button onClick={openResume} className="btn-outline">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              Download CV
+            </button>
+            <a href="#contact" className="btn-secondary">
+              Get in Touch
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
