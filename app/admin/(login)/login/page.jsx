@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { login } from '../actions'
+import { login } from '@/app/admin/actions'
 import { ADMIN_COOKIE } from '@/lib/admin/session'
 
 export const metadata = {
