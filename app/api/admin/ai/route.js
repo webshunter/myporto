@@ -22,7 +22,7 @@ export async function POST(request) {
 
   if (!isAiConfigured()) {
     return NextResponse.json(
-      { error: 'DEEPSEEK_API_KEY belum diisi di .env.local', code: 'NO_KEY' },
+      { error: 'DEEPSEEK_API_KEY belum diset di environment (lokal: .env.local, produksi: Vercel)', code: 'NO_KEY' },
       { status: 503 }
     )
   }

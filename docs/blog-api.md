@@ -115,4 +115,4 @@ Editor `/admin/blog/[id]` punya panel **Bantuan AI (DeepSeek)**:
 - **Buat ringkasan** — mengisi kolom ringkasan (maks 180 karakter).
 - **Buat meta description** — mengisi kolom SEO (maks 155 karakter).
 
-Butuh `DEEPSEEK_API_KEY` di `.env.local`. Tanpa key, panel menampilkan pesan bahwa key belum diisi. Endpoint: `POST /api/admin/ai` (wajib sesi admin atau Bearer API key), body `{task: "proofread" | "excerpt" | "meta", …}`.
+Butuh `DEEPSEEK_API_KEY` di environment (`.env.local` saat lokal, Environment Variables Vercel saat produksi). Tanpa key, panel menampilkan pesan bahwa key belum diisi. Endpoint: `POST /api/admin/ai` (wajib sesi admin atau Bearer API key), body `{task: "proofread" | "excerpt" | "meta", …}`.
