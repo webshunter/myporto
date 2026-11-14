@@ -9,6 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/code": "^2.9.4",
+    "@editorjs/editorjs": "^2.31.7",
+    "@editorjs/header": "^2.8.9",
+    "@editorjs/image": "^2.10.3",
+    "@editorjs/list": "^2.0.9",
+    "@editorjs/quote": "^2.7.6",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",

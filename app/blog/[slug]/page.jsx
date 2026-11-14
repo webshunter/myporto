@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, urlFor } from '@/lib/sanity'
-import { PortableText } from '@portabletext/react'
+import BlogBody from '@/components/BlogBody'
 import BlogHeader from '@/component/BlogHeader'
 import SiteFooter from '@/component/SiteFooter'
 
@@ -103,7 +103,7 @@ export default async function BlogPost({ params }) {
         )}
 
         <div className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-li:text-gray-300">
-          <PortableText value={post.body} />
+          <BlogBody value={post.body} />
         </div>
 
         <div className="mt-16 pt-8 border-t border-gray-800">

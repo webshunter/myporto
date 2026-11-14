@@ -5,7 +5,7 @@ export async function GET() {
 
   // Fetch slugs for blog, project, and app store
   const [blogs, projects, apps] = await Promise.all([
-    client.fetch(`*[_type == "blog"]{ "slug": slug.current }`),
+    client.fetch(`*[_type == "blog" && defined(publishedAt)]{ "slug": slug.current }`),
     client.fetch(`*[_type == "project"]{ "slug": slug.current }`),
     client.fetch(`*[_type == "app" && isActive == true]{ "slug": slug.current }`)
   ]);

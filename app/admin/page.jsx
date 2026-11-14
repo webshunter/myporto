@@ -1,156 +1,201 @@
-'use client'
+import Link from 'next/link'
+import {
+  getAdminCounts,
+  getRecentActivity,
+  getRecentTransactions,
+} from '@/lib/admin/data'
+import { formatDate, formatMoney, formatRelative } from '@/lib/admin/format'
 
-import { useState, useEffect } from 'react'
+export const dynamic = 'force-dynamic'
 
-const CARDS = [
-  {
-    type: 'blog',
-    title: 'Update Blog',
-    desc: 'Trigger revalidate untuk semua halaman blog. Gunakan ini jika ada perubahan pada data blog di Sanity.',
-  },
-  {
-    type: 'project',
-    title: 'Update Project',
-    desc: 'Trigger revalidate untuk semua halaman project. Gunakan ini jika ada perubahan pada data project di Sanity.',
-  },
-  {
-    type: 'app',
-    title: 'Update App',
-    desc: 'Trigger revalidate untuk semua halaman app/store. Gunakan ini jika ada perubahan pada data aplikasi di Sanity.',
-  },
-  {
-    type: 'category',
-    title: 'Update Category',
-    desc: 'Trigger revalidate untuk kategori yang mempengaruhi apps dan blog. Gunakan ini jika ada perubahan kategori di Sanity.',
-  },
-  {
-    type: 'transaction',
-    title: 'Update Transaction',
-    desc: 'Trigger revalidate untuk data transaksi. Gunakan ini jika ada perubahan pada data transaksi di Sanity.',
-  },
-]
+const TYPE_LABEL = { blog: 'Artikel', project: 'Project', app: 'Aplikasi' }
 
-export default function AdminPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState({})
+export default async function DashboardPage() {
+  const [counts, transactions, activity] = await Promise.all([
+    getAdminCounts(),
+    getRecentTransactions(4),
+    getRecentActivity(5),
+  ])
 
-  // Cek localStorage saat mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const loggedIn = localStorage.getItem('admin_logged_in')
-      if (loggedIn === 'true') setIsLoggedIn(true)
-    }
-  }, [])
-
-  const handleLogin = (e) => {
-    e.preventDefault()
-    if (username === 'gugus' && password === 'gugus$111$') {
-      setIsLoggedIn(true)
-      setMessage('Login success!')
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('admin_logged_in', 'true')
-      }
-    } else {
-      setMessage('Invalid username or password')
-    }
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false)
-    setUsername('')
-    setPassword('')
-    setMessage('')
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('admin_logged_in')
-    }
-  }
-
-  const handleTriggerUpdate = async (type) => {
-    setLoading(type)
-    setResults((prev) => ({ ...prev, [type]: null }))
-    setMessage('')
-    try {
-      const res = await fetch('/api/sanity-webhook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _type: type, _id: 'admin-trigger', operation: 'manual' })
-      })
-      const data = await res.json()
-      setResults((prev) => ({ ...prev, [type]: data }))
-      setMessage(`${type.charAt(0).toUpperCase() + type.slice(1)} update triggered!`)
-    } catch (err) {
-      setMessage(`Failed to trigger update for ${type}`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (!isLoggedIn) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <form onSubmit={handleLogin} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-6 text-center text-blue-400">Admin Login</h2>
-          <input
-            type="text"
-            placeholder="Username"
-            className="w-full mb-4 px-4 py-2 rounded bg-gray-700 text-white focus:outline-none"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            autoFocus
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full mb-6 px-4 py-2 rounded bg-gray-700 text-white focus:outline-none"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-colors"
-          >
-            Login
-          </button>
-          {message && <div className="mt-4 text-center text-red-400">{message}</div>}
-        </form>
-      </div>
-    )
-  }
+  const bars = [
+    { name: 'Keahlian', value: counts.skills, max: Math.max(counts.skills, 1) },
+    { name: 'Projects', value: counts.projects, max: Math.max(counts.skills, 1) },
+    { name: 'Layanan', value: counts.services, max: Math.max(counts.skills, 1) },
+    { name: 'Aplikasi', value: counts.apps, max: Math.max(counts.skills, 1) },
+    { name: 'Pengalaman', value: counts.experience, max: Math.max(counts.skills, 1) },
+    { name: 'Pendidikan', value: counts.education, max: Math.max(counts.skills, 1) },
+    { name: 'Artikel', value: counts.blog, max: Math.max(counts.skills, 1) },
+  ]
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white py-10">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-2xl text-center">
-        <h2 className="text-2xl font-bold mb-6 text-blue-400">Admin Panel</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {CARDS.map(card => (
-            <div key={card.type} className="bg-gray-900 rounded-lg p-6 shadow border border-gray-700 flex flex-col items-center">
-              <h3 className="text-lg font-bold mb-2 text-blue-300">{card.title}</h3>
-              <p className="text-gray-400 text-sm mb-4">{card.desc}</p>
-              <button
-                onClick={() => handleTriggerUpdate(card.type)}
-                className="bg-blue-500 text-white font-bold py-2 px-6 rounded hover:bg-blue-600 transition-colors mb-2"
-                disabled={loading === card.type}
-              >
-                {loading === card.type ? 'Updating...' : card.title}
-              </button>
-              {results[card.type] && (
-                <pre className="bg-gray-800 text-xs p-2 rounded mt-2 text-left overflow-x-auto max-h-40 w-full">{JSON.stringify(results[card.type], null, 2)}</pre>
+    <>
+      <div className="topbar">
+        <h1>Dashboard</h1>
+        <span className="crumb">Ringkasan konten dan aktivitas situs</span>
+        <div className="topbar-right">
+          <Link className="btn btn-ghost" href="/" target="_blank">
+            Lihat situs
+          </Link>
+          <div className="avatar">GD</div>
+        </div>
+      </div>
+
+      <div className="page">
+        <div className="stats">
+          <div className="stat">
+            <div className="stat-label">Artikel</div>
+            <div className="stat-figure">{counts.blog}</div>
+            <div className="stat-note">
+              <b>{counts.blogPublished}</b> terbit, {counts.blog - counts.blogPublished} draf
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">Projects</div>
+            <div className="stat-figure">{counts.projects}</div>
+            <div className="stat-note">
+              <b>{counts.featuredProjects}</b> tampil di homepage
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">Aplikasi</div>
+            <div className="stat-figure">{counts.apps}</div>
+            <div className="stat-note">Aktif di store</div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">Transaksi</div>
+            <div className="stat-figure">{counts.transactions}</div>
+            <div className="stat-note">Semua unduhan gratis</div>
+          </div>
+        </div>
+
+        <div className="grid-2">
+          <section className="card">
+            <div className="card-head">
+              <div>
+                <div className="card-title">Kunjungan</div>
+                <div className="card-sub">30 hari terakhir, Google Analytics</div>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="empty">
+                <div className="empty-title">Belum terhubung ke Google Analytics</div>
+                <p className="empty-text">
+                  Tambahkan kredensial GA4 di pengaturan untuk menampilkan grafik kunjungan di sini.
+                </p>
+                <Link className="btn" href="/admin/pengaturan">
+                  Buka pengaturan
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <section className="card">
+            <div className="card-head">
+              <div className="card-title">Isi konten</div>
+              <div className="spacer" />
+              <span className="card-sub">total dokumen</span>
+            </div>
+            <div className="card-body is-fill">
+              <div className="bars">
+                {bars.map((bar) => (
+                  <div className="bar-row" key={bar.name}>
+                    <span className="bar-name">{bar.name}</span>
+                    <span className="bar-track">
+                      <span
+                        className={`bar-fill${bar.value === 0 ? ' is-dim' : ''}`}
+                        style={{ width: `${Math.max((bar.value / bar.max) * 100, bar.value ? 2 : 1)}%` }}
+                      />
+                    </span>
+                    <span className="bar-value">{bar.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className="grid-2">
+          <section className="card">
+            <div className="card-head">
+              <div className="card-title">Transaksi terbaru</div>
+              <div className="spacer" />
+              <Link className="link" href="/admin/transaksi">
+                Lihat semua
+              </Link>
+            </div>
+            {transactions.length === 0 ? (
+              <div className="card-body">
+                <div className="empty">
+                  <div className="empty-title">Belum ada transaksi</div>
+                  <p className="empty-text">Transaksi muncul setelah ada unduhan atau pembelian aplikasi.</p>
+                </div>
+              </div>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Aplikasi</th>
+                    <th>Pembeli</th>
+                    <th>Nominal</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.map((tx) => (
+                    <tr key={tx._id}>
+                      <td>
+                        <div className="cell-main">
+                          <div className="thumb">{(tx.app ?? '?').slice(0, 1)}</div>
+                          <strong>{tx.app ?? 'Tanpa aplikasi'}</strong>
+                        </div>
+                      </td>
+                      <td>{tx.customerEmail}</td>
+                      <td>{formatMoney(tx.amount)}</td>
+                      <td className="num">{formatDate(tx.createdAt)}</td>
+                      <td>
+                        <span className={`pill ${tx.status === 'completed' ? 'is-live' : 'is-draft'}`}>
+                          {tx.status === 'completed' ? 'Selesai' : tx.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </section>
+
+          <section className="card">
+            <div className="card-head">
+              <div className="card-title">Aktivitas</div>
+            </div>
+            <div className="card-body" style={{ paddingTop: 4, paddingBottom: 12 }}>
+              {activity.length === 0 ? (
+                <div className="empty">
+                  <div className="empty-title">Belum ada aktivitas</div>
+                </div>
+              ) : (
+                <div className="activity">
+                  {activity.map((item) => (
+                    <div className="act" key={item._id}>
+                      <span className="act-icon">
+                        <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 20h4L20 8l-4-4L4 16z" />
+                        </svg>
+                      </span>
+                      <div className="act-text">
+                        <b>{item.label ?? 'Tanpa judul'}</b> diperbarui
+                        <div className="hint">{TYPE_LABEL[item._type] ?? item._type}</div>
+                      </div>
+                      <div className="act-time num">{formatRelative(item._updatedAt)}</div>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
-          ))}
+          </section>
         </div>
-        {message && <div className="mb-2 text-green-400">{message}</div>}
-        <button
-          onClick={handleLogout}
-          className="mt-6 text-sm text-gray-400 hover:underline"
-        >
-          Logout
-        </button>
       </div>
-    </div>
+    </>
   )
-} 
+}
